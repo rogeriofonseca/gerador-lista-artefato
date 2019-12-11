@@ -27,13 +27,13 @@ Comando para listar os artefatos incluídos/alterados/renomeados para geração 
 ### Linux
 
 ``` console
-$ node gerador-artefato.js --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
+$ node gerador-artefato --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
 ```
 
 ### Windows
 
 ``` console
-$ node gerador-artefato.js --diretorio=C:/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
+$ node gerador-artefato --diretorio=C:/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
 ```
 
 #### Onde:
@@ -51,7 +51,7 @@ $ node gerador-artefato.js --diretorio=C:/kdi/git --projeto=foo-estatico,foo-api
 ## Saida do gerador
 
 ``` console
-$ node gerador-artefato.js --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081 --mostrar-deletados --mostrar-num-modificacao
+$ node gerador-artefato --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081 --mostrar-deletados --mostrar-num-modificacao
 
 Tarefa nº 900089
 
@@ -74,7 +74,7 @@ Onde:
 ## Exemplo de uso
 
 ``` console
-$ node gerador-artefato.js --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900077,900079
+$ node gerador-artefato --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900077,900079
 
 Tarefas nº 900077, 900079
 
