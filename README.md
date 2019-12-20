@@ -6,7 +6,6 @@ Comando para listar os artefatos incluídos/alterados/renomeados para geração 
 
 ### Sistema
 
-- Node.js versão mínima v8.11.3
 - Git versão mínima v2.7.4
 
 ### Git
@@ -19,34 +18,45 @@ Comando para listar os artefatos incluídos/alterados/renomeados para geração 
 
 ## Instalação
 
-- Baixe o script `gerador-artefato.js` [aqui](https://raw.githubusercontent.com/diegomdrs/gerador-lista-artefato-qas/master/gerador-artefato.js) e salve no seu computador
-- Abra um terminal e execute o script com o comando `node`
+### Linux 
+
+- Baixe [aqui](https://raw.githubusercontent.com/diegomdrs/gerador-lista-artefato-qas/master/dist/gerador-lista-artefato-qas-linux) a versão Linux e salve no seu computador
+
+- Em seguida, execute o comando abaixo:
+
+``` console
+$ chmod +x gerador-lista-artefato-qas-linux
+```
+
+### Windows 
+
+- Baixe [aqui](https://raw.githubusercontent.com/diegomdrs/gerador-lista-artefato-qas/master/dist/gerador-lista-artefato-qas-win.exe) a versão Windows e salve no seu computador
 
 ## Uso
 
 ### Linux
 
 ``` console
-$ node gerador-artefato --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
+$ ./gerador-lista-artefato-qas-linux --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
 ```
 
 ### Windows
 
 ``` console
-$ node gerador-artefato --diretorio=C:/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
+$ ./gerador-lista-artefato-qas-win.exe --diretorio=C:/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
 ```
 
-#### Onde:
+## Parâmetros
 
-- --diretorio: Diretório raiz dos projetos Git
-- --projeto: Lista de projetos Git (podem ser passados vários projetos separados por vírgula)
-- --autor: Matrícula do autor dos commits
-- --task: Lista de tarefas (podem ser passadas várias tarefas separadas por vírgula)
-
-#### Paramêtros opcionais
-
-- --mostrar-num-modificacao: Nº de modificações do artefato na tarefa ou tarefas
-- --mostrar-deletados: Mostrar artefatos deletados na tarefa
+- -d, --diretorio: Diretório raiz dos projetos Git
+- -p, --projeto: Lista de projetos Git (podem ser passados vários projetos separados por vírgula)
+- -a, --autor <type>: Matrícula do autor dos commits
+- -t, --task <type>: Lista de tarefas (podem ser passadas várias tarefas separadas por vírgula)
+- --mostrar-num-modificacao: Nº de modificações do artefato na tarefa ou tarefas (Opcional)
+- --mostrar-deletados: Mostra artefatos deletados na tarefa (Opcional)
+- -s, --server: Inicia a versão server e ignora os outros parâmetros
+- -v, --version: Mostra a versão do programa
+- -h, --help: output usage information
 
 ## Saida do gerador
 

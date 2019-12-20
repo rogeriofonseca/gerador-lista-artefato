@@ -1,0 +1,34 @@
+{
+  "name": "gerador-lista-artefato-qas",
+  "version": "0.0.1",
+  "description": "",
+  "bin": {
+    "gerador-lista-artefato": "./app.js"
+  },
+  "scripts": {
+    "start": "node app -s",
+    "dev": "node --inspect app -s",
+    "test": "jest --runInBand"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegomdrs/gerador-lista-artefato-qas"
+  },
+  "bugs": {
+    "url": "https://github.com/diegomdrs/gerador-lista-artefato-qas/issues"
+  },
+  "homepage": "https://github.com/diegomdrs/gerador-lista-artefato-qas#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "commander": "^4.0.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "fs-extra": "^8.1.0",
+    "jest": "^24.9.0",
+    "simple-git": "^1.129.0"
+  }
+}
