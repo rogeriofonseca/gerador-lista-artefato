@@ -54,7 +54,6 @@ $ ./gerador-lista-artefato-qas-win.exe --diretorio=C:/kdi/git --projeto=foo-esta
 - -t, --task <type>: Lista de tarefas (podem ser passadas várias tarefas separadas por vírgula)
 - --mostrar-num-modificacao: Nº de modificações do artefato na tarefa ou tarefas (Opcional)
 - --mostrar-deletados: Mostra artefatos deletados na tarefa (Opcional)
-- -s, --server: Inicia a versão server e ignora os outros parâmetros
 - -v, --version: Mostra a versão do programa
 - -h, --help: output usage information
 
