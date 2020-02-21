@@ -12,11 +12,13 @@ describe('test gerais', () => {
     })
 
     // jest --runInBand --verbose test/diretorio.test.js 
-    it('teste', () => {
+    it('teste', async () => {
 
         diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas/bar')
 
-        const lista = diretorio.listarDiretorios()
+        const lista = await diretorio.listarDiretorios()
+
+        console.log(lista)
 
         // expect(lista).toHaveLength(1)
     })
