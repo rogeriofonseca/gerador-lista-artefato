@@ -18,9 +18,16 @@ describe('test gerais', () => {
 
         const lista = await diretorio.listarDiretorios()
 
-        console.log(lista)
+        expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
+    })
 
-        // expect(lista).toHaveLength(1)
+    it('teste', async () => {
+
+        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
+
+        const lista = await diretorio.listarDiretorios()
+
+        console.log(lista)
     })
 
     // afterAll(async () => {
