@@ -1,3 +1,5 @@
+const path = require('path')
+
 const Param = require('../models/param')
 const GeradorTestUtil = require('./gerador-test-util')
 
@@ -6,6 +8,9 @@ const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
 const nomeProjeto = 'foo'
 const autor = 'fulano'
 
+const appName = require('../package.json').name
+const caminho = '/tmp' + path.sep + appName
+
 let gitUtil, gerador, params = {}
 
 describe('test gerais', () => {
@@ -13,7 +18,7 @@ describe('test gerais', () => {
     beforeEach(async () => {
 
         gerador = require('../lib/gerador')
-        gitUtil = await new GeradorTestUtil(nomeProjeto, autor)
+        gitUtil = await new GeradorTestUtil(caminho, nomeProjeto, autor)
 
         params = new Param({
             autor: "fulano",
@@ -447,8 +452,8 @@ describe('test gerais', () => {
         const nomeProjetoQux = 'qux'
         const nomeProjetoBaz = 'baz'
 
-        const gitQux = await new GeradorTestUtil(nomeProjetoQux, autor)
-        const gitBaz = await new GeradorTestUtil(nomeProjetoBaz, autor)
+        const gitQux = await new GeradorTestUtil(caminho, nomeProjetoQux, autor)
+        const gitBaz = await new GeradorTestUtil(caminho, nomeProjetoBaz, autor)
 
         await gitQux.manipularArquivoComCommit('1111111', 'arquivoQux.txt', TIPO_MODIFICACAO.ADDED)
         await gitBaz.manipularArquivoComCommit('1111111', 'arquivoBaz.txt', TIPO_MODIFICACAO.ADDED)
@@ -630,8 +635,8 @@ describe('test gerais', () => {
         const nomeProjetoFoo = 'foo'
         const nomeProjetoBar = 'bar'
 
-        const gitFoo = await new GeradorTestUtil(nomeProjetoFoo, autor)
-        const gitBar = await new GeradorTestUtil(nomeProjetoBar, autor)
+        const gitFoo = await new GeradorTestUtil(caminho, nomeProjetoFoo, autor)
+        const gitBar = await new GeradorTestUtil(caminho, nomeProjetoBar, autor)
 
         const params = new Param({
             autor: "fulano",
@@ -762,7 +767,6 @@ describe('test gerais', () => {
     })
 
     afterAll(async () => {
-
         gitUtil.removerDiretorioTest()
     })
 })

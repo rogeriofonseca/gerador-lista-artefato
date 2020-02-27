@@ -1,14 +1,9 @@
-const app = require('../package.json')
 const crypto = require('crypto')
-const path = require('path')
 const fs = require('fs-extra')
 
 const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
 
-const NAME_APP = app.name
-const PATH_TEST = '/tmp' + path.sep + NAME_APP
-
-module.exports = function (nomeProjeto, autor) {
+module.exports = function (caminho, nomeProjeto, autor) {
 
     this.nomeProjeto = nomeProjeto
     this.autor = autor
@@ -27,19 +22,19 @@ module.exports = function (nomeProjeto, autor) {
     }
 
     this.obterCaminhoProjeto = function () {
-        return `${PATH_TEST}/${this.nomeProjeto}`
+        return `${caminho}/${this.nomeProjeto}`
     }
 
     this.obterCaminhoArquivo = function (pathArquivo) {
         return `${this.obterCaminhoProjeto()}/${pathArquivo}`
     }
 
-    this.removerDiretorioProjeto = async function (path) {
-        fs.removeSync(path)
+    this.removerDiretorioProjeto = async function (caminho) {
+        fs.removeSync(caminho)
     }
 
     this.removerDiretorioTest = async function () {
-        fs.removeSync(PATH_TEST)
+        fs.removeSync(caminho)
     }
 
     this.checkoutBranch = async function (nomeBranch) {
