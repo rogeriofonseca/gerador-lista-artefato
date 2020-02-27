@@ -40,4 +40,22 @@ describe('test gerais', () => {
         gitFoo.removerDiretorioTest()
         gitBar.removerDiretorioTest()
     })
+
+    it('teste listar sub-diretorios segundo nivel', async () => {
+
+        const caminho = '/tmp' + path.sep + appName + path.sep + 'foo' 
+
+        const gitFoo = await new GeradorTestUtil(caminho, 'foo', autor)
+        const gitBar = await new GeradorTestUtil(caminho, 'bar', autor)
+
+        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
+
+        const lista = await diretorio.listarDiretorios()
+
+        expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/foo/bar')
+        expect(lista[1]).toBe('/tmp/gerador-lista-artefato-qas/foo/foo')
+
+        gitFoo.removerDiretorioTest()
+        gitBar.removerDiretorioTest()
+    })
 })
