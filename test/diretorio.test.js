@@ -14,21 +14,21 @@ describe('test gerais', () => {
     // jest --runInBand --verbose test/diretorio.test.js 
     it('teste', async () => {
 
-        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas/bar')
+        diretorio = require('../lib/diretorio')('/home/foo/Documents')
 
         const lista = await diretorio.listarDiretorios()
 
-        expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
+        // expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
     })
 
-    it('teste', async () => {
+    // it('teste', async () => {
 
-        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
+    //     diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
 
-        const lista = await diretorio.listarDiretorios()
+    //     const lista = await diretorio.listarDiretorios()
 
-        console.log(lista)
-    })
+    //     console.log(lista)
+    // })
 
     // afterAll(async () => {
 
