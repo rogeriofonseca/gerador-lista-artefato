@@ -1,12 +1,11 @@
 const path = require('path')
 
 const autor = 'fulano'
-const appName = require('../package.json').name
-const caminho = '/tmp' + path.sep + appName
+const caminho = require('../package.json').name
 
 const GeradorTestUtil = require('./gerador-test-util')
 
-let diretorio, gitUtil = {}
+let diretorio = {}
 
 // node_modules/jest/bin/jest.js --runInBand --verbose test/diretorio.test.js 
 // jest --runInBand --verbose test/diretorio.test.js 
@@ -43,10 +42,10 @@ describe('test gerais', () => {
 
     it('teste listar sub-diretorios segundo nivel', async () => {
 
-        const caminho = '/tmp' + path.sep + appName + path.sep + 'foo'
+        const caminhoSegundoNivel = caminho + path.sep + 'foo'
 
-        const gitFoo = await new GeradorTestUtil(caminho, 'foo', autor)
-        const gitBar = await new GeradorTestUtil(caminho, 'bar', autor)
+        const gitFoo = await new GeradorTestUtil(caminhoSegundoNivel, 'foo', autor)
+        const gitBar = await new GeradorTestUtil(caminhoSegundoNivel, 'bar', autor)
 
         diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
 
@@ -61,8 +60,8 @@ describe('test gerais', () => {
 
     it('teste listar sub-diretorios primeiro e segundo nivel', async () => {
 
-        const caminhoPrimeiroNivel = '/tmp' + path.sep + appName
-        const caminhoSegundoNivel = '/tmp' + path.sep + appName + path.sep + 'foo'
+        const caminhoPrimeiroNivel = caminho
+        const caminhoSegundoNivel = caminho + path.sep + 'foo'
 
         const gitFoo = await new GeradorTestUtil(caminhoPrimeiroNivel, 'bar', autor)
         const gitBar = await new GeradorTestUtil(caminhoSegundoNivel, 'foo', autor)

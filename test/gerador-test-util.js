@@ -1,3 +1,4 @@
+const path = require('path')
 const crypto = require('crypto')
 const fs = require('fs-extra')
 
@@ -5,6 +6,7 @@ const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
 
 module.exports = function (caminho, nomeProjeto, autor) {
 
+    this.caminho = '/tmp' + path.sep + caminho
     this.nomeProjeto = nomeProjeto
     this.autor = autor
 
@@ -22,7 +24,7 @@ module.exports = function (caminho, nomeProjeto, autor) {
     }
 
     this.obterCaminhoProjeto = function () {
-        return `${caminho}/${this.nomeProjeto}`
+        return `${this.caminho}/${this.nomeProjeto}`
     }
 
     this.obterCaminhoArquivo = function (pathArquivo) {
@@ -34,7 +36,7 @@ module.exports = function (caminho, nomeProjeto, autor) {
     }
 
     this.removerDiretorioTest = async function () {
-        fs.removeSync(caminho)
+        fs.removeSync(this.caminho)
     }
 
     this.checkoutBranch = async function (nomeBranch) {
