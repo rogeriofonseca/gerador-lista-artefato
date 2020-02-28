@@ -36,7 +36,9 @@
     "bootstrap": "^4.4.1",
     "commander": "^4.0.1",
     "express": "^4.17.1",
-    "open": "^7.0.2"
+    "ng-device-detector": "^5.1.4",
+    "open": "^7.0.2",
+    "re-tree": "^0.1.7"
   },
   "devDependencies": {
     "fs-extra": "^8.1.0",

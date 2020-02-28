@@ -2,9 +2,9 @@ angular
     .module('geradorApp')
     .controller('GeradorController', GeradorController)
 
-GeradorController.$inject = ['geradorService', 'blockUI', 'clipboardUtil', 'geradorConstants'];
+GeradorController.$inject = ['geradorService', 'blockUI', 'clipboardUtil', 'geradorConstants', 'deviceDetector'];
 
-function GeradorController(geradorService, blockUI, clipboardUtil, geradorConstants) {
+function GeradorController(geradorService, blockUI, clipboardUtil, geradorConstants, deviceDetector) {
     var vm = this
 
     vm.listaSaida = []
@@ -32,6 +32,36 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
         limparMessages()
         limparFiltros()
+
+        listarDiretorio()
+    }
+
+    function listarDiretorio() {
+
+        blockUI.start()
+
+        geradorService.listarDiretorio(obterCaminhoDiretorioPadrao())
+            .then((resposta) => {
+
+                vm.req.listaProjeto = resposta.data
+
+            }).catch((error) => {
+
+                adicionarMensagemErro(error.data.message,
+                    geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
+
+                vm.listaCaminhoProjeto = []
+
+            }).finally(() => blockUI.stop())
+    }
+
+    function obterCaminhoDiretorioPadrao() {
+
+        const blah = Object.values(geradorConstants.TIPO_DIRETORIO_PADRAO).find(diretorio => {
+            return deviceDetector.os[diretorio.key]
+        })
+        
+        return { diretorio: blah }
     }
 
     function listarArtefatos() {
@@ -73,7 +103,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
         if (saida.listaArtefatoSaida.length === 1)
             return saida.listaNumTarefaSaida.length
-        else 
+        else
             return saida.listaArtefatoSaida.length
     }
 
@@ -95,12 +125,12 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
             for (const tarefa of listaTarefa) {
 
-                const contemTarefa = vm.req.listaTarefa.some((tarefaSome) => 
+                const contemTarefa = vm.req.listaTarefa.some((tarefaSome) =>
                     tarefa === tarefaSome)
 
-                if(!contemTarefa)
+                if (!contemTarefa)
                     vm.req.listaTarefa.push(tarefa)
-                else 
+                else
                     adicionarMensagemErro(`${tarefa} já consta na lista de tarefas`,
                         geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
             }
@@ -119,12 +149,12 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
             for (const projeto of listaProjeto) {
 
-                const contemProjeto = vm.req.listaProjeto.some((projetoSome) => 
+                const contemProjeto = vm.req.listaProjeto.some((projetoSome) =>
                     projeto.trim() === projetoSome)
 
-                if(!contemProjeto) 
+                if (!contemProjeto)
                     vm.req.listaProjeto.push(projeto.trim())
-                else 
+                else
                     adicionarMensagemErro(`${projeto.trim()} já consta na lista de projetos`,
                         geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
             }

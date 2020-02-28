@@ -9,7 +9,8 @@ angular
 configure.$inject = [
 	'$routeProvider', 
 	'$locationProvider',
-	'blockUIConfig'
+	'blockUIConfig',
+	'ng.deviceDetector'
 ];
 
 function configure(
