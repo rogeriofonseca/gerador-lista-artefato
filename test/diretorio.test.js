@@ -35,11 +35,21 @@ describe('test gerais', () => {
             new Error(`${caminho} não é um caminho válido`));
     })
 
-    it('teste diretorio com diretorio invalido', async () => {
+    it('teste diretorio com diretorio sem permissao de leitura no primeiro nivel', async () => {
+
+        const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
+        
+        const caminhoSemAcessoBar = caminho + path.sep + 'foo' + path.sep + 'bar'
+
+        fs.mkdirsSync(caminhoSemAcessoBar) ; fs.chmodSync(caminhoSemAcessoBar, 0o000);
 
         diretorio = require('../lib/diretorio')(caminho)
 
-        
+        const lista = await diretorio.listarDiretorio()
+
+        expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/foo')
+
+        gitFoo.removerDiretorioTest()
     })
 
     it('teste listar sub-diretorios primeiro nivel', async () => {
