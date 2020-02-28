@@ -31,8 +31,6 @@ describe('test gerais', () => {
 
         diretorio = require('../lib/diretorio')(caminho)
 
-        expect.assertions(1);
-
         return expect(diretorio.listarDiretorio()).rejects.toEqual(
             new Error(`${caminho} não é um caminho válido`));
     })
