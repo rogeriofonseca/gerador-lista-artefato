@@ -35,6 +35,13 @@ describe('test gerais', () => {
             new Error(`${caminho} não é um caminho válido`));
     })
 
+    it('teste diretorio com diretorio invalido', async () => {
+
+        diretorio = require('../lib/diretorio')(caminho)
+
+        
+    })
+
     it('teste listar sub-diretorios primeiro nivel', async () => {
 
         const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
