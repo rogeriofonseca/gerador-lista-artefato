@@ -6,6 +6,7 @@ const nomeApp = require('../package.json').name
 
 const GeradorTestUtil = require('./gerador-test-util')
 
+const caminho = '/tmp/gerador-lista-artefato-qas'
 let diretorio = {}
 
 // node_modules/jest/bin/jest.js --runInBand --verbose test/diretorio.test.js 
@@ -14,15 +15,26 @@ describe('test gerais', () => {
 
     it('teste diretorio', async () => {
 
+        const caminho = '/tmp/gerador-lista-artefato-qas/bar'
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
 
-        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas/bar')
+        diretorio = require('../lib/diretorio')(caminho)
 
-        const lista = await diretorio.listarDiretorios()
+        const lista = await diretorio.listarDiretorio()
 
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
 
         gitBar.removerDiretorioTest()
+    })
+
+    it('teste diretorio invalido', async () => {
+
+        diretorio = require('../lib/diretorio')(caminho)
+
+        expect.assertions(1);
+
+        return expect(diretorio.listarDiretorio()).rejects.toEqual(
+            new Error(`${caminho} não é um caminho válido`));
     })
 
     it('teste listar sub-diretorios primeiro nivel', async () => {
@@ -30,9 +42,9 @@ describe('test gerais', () => {
         const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
 
-        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
+        diretorio = require('../lib/diretorio')(caminho)
 
-        const lista = await diretorio.listarDiretorios()
+        const lista = await diretorio.listarDiretorio()
 
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
         expect(lista[1]).toBe('/tmp/gerador-lista-artefato-qas/foo')
@@ -48,9 +60,9 @@ describe('test gerais', () => {
         const gitFoo = await new GeradorTestUtil(caminhoSegundoNivel, 'foo', autor)
         const gitBar = await new GeradorTestUtil(caminhoSegundoNivel, 'bar', autor)
 
-        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
+        diretorio = require('../lib/diretorio')(caminho)
 
-        const lista = await diretorio.listarDiretorios()
+        const lista = await diretorio.listarDiretorio()
 
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/foo/bar')
         expect(lista[1]).toBe('/tmp/gerador-lista-artefato-qas/foo/foo')
@@ -67,9 +79,9 @@ describe('test gerais', () => {
         const gitFoo = await new GeradorTestUtil(caminhoPrimeiroNivel, 'bar', autor)
         const gitBar = await new GeradorTestUtil(caminhoSegundoNivel, 'foo', autor)
 
-        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
+        diretorio = require('../lib/diretorio')(caminho)
 
-        const lista = await diretorio.listarDiretorios()
+        const lista = await diretorio.listarDiretorio()
 
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
         expect(lista[1]).toBe('/tmp/gerador-lista-artefato-qas/foo/foo')
@@ -98,9 +110,9 @@ describe('test gerais', () => {
         const gitQux = await new GeradorTestUtil(caminhoQuartoNivel, 'qux', autor)
         const gitThu = await new GeradorTestUtil(caminhoQuintoNivel, 'thu', autor)
 
-        diretorio = require('../lib/diretorio')('/tmp/gerador-lista-artefato-qas')
+        diretorio = require('../lib/diretorio')(caminho)
 
-        const lista = await diretorio.listarDiretorios()
+        const lista = await diretorio.listarDiretorio()
 
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
         expect(lista[1]).toBe('/tmp/gerador-lista-artefato-qas/bar/qux/baz')

@@ -28,11 +28,11 @@ module.exports = function (app) {
         }
     })
 
-    app.post('/listarDiretorios', async function (req, resp) {
+    app.post('/listarDiretorio', async function (req, resp) {
 
         try {
             const diretorio = require('../lib/diretorio')(req.body.diretorio)
-            const listaSaida = await diretorio.listarDiretorios()
+            const listaSaida = await diretorio.listarDiretorio()
 
             resp.json(listaSaida)
 
