@@ -47,7 +47,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
             }).catch((error) => {
 
-                adicionarMensagemErro(error.data.message,
+                adicionarMensagemErro('Erro ao obter o diretório padrão. ' + error.data.message,
                     geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
 
                 vm.listaCaminhoProjeto = []
