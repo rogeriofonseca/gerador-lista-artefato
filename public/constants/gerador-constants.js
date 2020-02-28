@@ -22,8 +22,8 @@ angular
         TIMEOUT_ALERTA: 4000,
 
         TIPO_DIRETORIO_PADRAO: {
-            WINDOWS: { key: 'windows', diretorio: 'C:/kdi/git' },
-            LINUX: { key: 'linux', diretorio: '/kdi/git' },
-            MAC: { key: 'mac', diretorio: '/kdi/git' }
+            windows: 'C:/kdi/git',
+            linux: '/kdi/git',
+            mac: '/kdi/git'
         },
     })

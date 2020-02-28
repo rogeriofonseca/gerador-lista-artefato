@@ -57,11 +57,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
     function obterCaminhoDiretorioPadrao() {
 
-        const blah = Object.values(geradorConstants.TIPO_DIRETORIO_PADRAO).find(diretorio => {
-            return deviceDetector.os[diretorio.key]
-        })
-        
-        return { diretorio: blah }
+        return { diretorio: geradorConstants.TIPO_DIRETORIO_PADRAO[deviceDetector.os] }
     }
 
     function listarArtefatos() {
