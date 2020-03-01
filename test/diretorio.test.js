@@ -13,7 +13,7 @@ let diretorio = {}
 // jest --runInBand --verbose test/diretorio.test.js 
 describe('test gerais', () => {
 
-    it('teste diretorio', async () => {
+    xit('teste diretorio', async () => {
 
         const caminho = ['/tmp/gerador-lista-artefato-qas']
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
@@ -21,8 +21,6 @@ describe('test gerais', () => {
         diretorio = require('../lib/diretorio')(caminho)
 
         const lista = await diretorio.listarDiretorio()
-
-        console.log(lista)
 
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
 
