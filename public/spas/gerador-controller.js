@@ -33,7 +33,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
         limparMessages()
         limparFiltros()
 
-        await listarDiretorio(obterCaminhoDiretorioPadrao())
+        listarDiretorio(obterCaminhoDiretorioPadrao())
     }
 
     function listarDiretorio(listaDiretorio) {
@@ -155,7 +155,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
                         geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
             }
 
-            await listarDiretorio(vm.req.listaProjeto)
+            listarDiretorio(vm.req.listaProjeto)
 
             !vm.req.listaProjeto.length && adicionarMensagemErro
                 ('Nenhum diretório encontrado', geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
