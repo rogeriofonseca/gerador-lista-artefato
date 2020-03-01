@@ -33,14 +33,14 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
         limparMessages()
         limparFiltros()
 
-        listarDiretorio()
+        listarDiretorio(obterCaminhoDiretorioPadrao())
     }
 
-    function listarDiretorio() {
+    function listarDiretorio(listaDiretorio) {
 
         blockUI.start()
 
-        geradorService.listarDiretorio(obterCaminhoDiretorioPadrao())
+        geradorService.listarDiretorio(listaDiretorio)
             .then((resposta) => {
 
                 vm.req.listaProjeto = resposta.data
@@ -135,7 +135,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
         }
     }
 
-    function adicionarCaminhoProjeto() {
+    async function adicionarCaminhoProjeto() {
 
         limparMessages()
 
@@ -155,6 +155,11 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
                         geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
             }
 
+            await listarDiretorio(vm.req.listaProjeto)
+
+            !vm.req.listaProjeto.length && adicionarMensagemErro
+                ('Nenhum diretório encontrado', geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
+
             delete vm.listaCaminhoProjeto
         }
     }
@@ -172,20 +177,20 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
         vm.alerts = []
     }
 
-    function adicionarMensagemSucesso(mensagem, tipoFoo) {
-        adicionarMensagem(vm.TIPO_ALERTA.SUCCESS, mensagem, tipoFoo)
+    function adicionarMensagemSucesso(mensagem, tipo) {
+        adicionarMensagem(vm.TIPO_ALERTA.SUCCESS, mensagem, tipo)
     }
 
-    function adicionarMensagemErro(mensagem, tipoFoo) {
-        adicionarMensagem(vm.TIPO_ALERTA.ERROR, mensagem, tipoFoo)
+    function adicionarMensagemErro(mensagem, tipo) {
+        adicionarMensagem(vm.TIPO_ALERTA.ERROR, mensagem, tipo)
     }
 
-    function adicionarMensagem(tipoAlerta, mensagem, tipoFoo) {
+    function adicionarMensagem(tipoAlerta, mensagem, tipo) {
 
         const message = {
             tipoAlerta: tipoAlerta,
             text: mensagem,
-            tipoFoo: tipoFoo,
+            tipo: tipo,
         }
 
         vm.alerts.push(message)
