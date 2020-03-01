@@ -22,6 +22,8 @@ describe('test gerais', () => {
 
         const lista = await diretorio.listarDiretorio()
 
+        console.log(lista)
+
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
 
         gitBar.removerDiretorioTest()
