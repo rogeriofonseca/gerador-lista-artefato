@@ -13,9 +13,9 @@ let diretorio = {}
 // jest --runInBand --verbose test/diretorio.test.js 
 describe('test gerais', () => {
 
-    xit('teste diretorio', async () => {
+    it('teste diretorio', async () => {
 
-        const caminho = ['/tmp/gerador-lista-artefato-qas/bar']
+        const caminho = ['/tmp/gerador-lista-artefato-qas']
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
 
         diretorio = require('../lib/diretorio')(caminho)
@@ -27,9 +27,9 @@ describe('test gerais', () => {
         gitBar.removerDiretorioTest()
     })
 
-    it('teste listar sub-diretorios primeiro nivel', async () => {
+    xit('teste listar sub-diretorios primeiro nivel', async () => {
 
-        const caminho = ['/tmp/gerador-lista-artefato-qas/bar']
+        const caminho = ['/tmp/gerador-lista-artefato-qas']
 
         const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
