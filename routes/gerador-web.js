@@ -31,7 +31,7 @@ module.exports = function (app) {
     app.post('/listarDiretorio', async function (req, resp) {
 
         try {
-            const diretorio = require('../lib/diretorio')(req.body.diretorio)
+            const diretorio = require('../lib/diretorio')(req.body.listaDiretorio)
             const listaSaida = await diretorio.listarDiretorio()
 
             resp.json(listaSaida)

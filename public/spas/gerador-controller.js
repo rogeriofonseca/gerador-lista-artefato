@@ -47,7 +47,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
             }).catch((error) => {
 
-                adicionarMensagemErro('Erro ao obter o diretório padrão. ' + error.data.message,
+                adicionarMensagemErro(error.data.message,
                     geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
 
                 vm.listaCaminhoProjeto = []
@@ -57,7 +57,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
     function obterCaminhoDiretorioPadrao() {
 
-        return { diretorio: geradorConstants.TIPO_DIRETORIO_PADRAO[deviceDetector.os] }
+        return { listaDiretorio: [geradorConstants.TIPO_DIRETORIO_PADRAO[deviceDetector.os]] }
     }
 
     function listarArtefatos() {
