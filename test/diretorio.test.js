@@ -127,15 +127,15 @@ describe('test gerais', () => {
             new Error(`${caminho} não é um caminho válido`));
     })
 
-    xit('teste diretorio com diretorio sem permissao de leitura no primeiro nivel', async () => {
+    it('teste diretorio com diretorio sem permissao de leitura no primeiro nivel', async () => {
 
         const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
 
-        const caminhoSemAcessoBar = [caminho + path.sep + 'foo' + path.sep + 'bar']
+        const caminhoSemAcessoBar = caminho + path.sep + 'foo' + path.sep + 'bar'
 
         fs.mkdirsSync(caminhoSemAcessoBar); fs.chmodSync(caminhoSemAcessoBar, 0o000);
 
-        diretorio = require('../lib/diretorio')(caminho)
+        diretorio = require('../lib/diretorio')([caminho])
 
         const lista = await diretorio.listarDiretorio()
 
