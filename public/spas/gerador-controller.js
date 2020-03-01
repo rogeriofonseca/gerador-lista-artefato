@@ -28,12 +28,12 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
     vm.copiarTabelaPlainTextClipboard = copiarTabelaPlainTextClipboard
     vm.copiarTabelaClipboard = copiarTabelaClipboard
 
-    function init() {
+    async function init() {
 
         limparMessages()
         limparFiltros()
 
-        listarDiretorio(obterCaminhoDiretorioPadrao())
+        await listarDiretorio(obterCaminhoDiretorioPadrao())
     }
 
     function listarDiretorio(listaDiretorio) {
