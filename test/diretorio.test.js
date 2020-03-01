@@ -6,30 +6,16 @@ const nomeApp = require('../package.json').name
 
 const GeradorTestUtil = require('./gerador-test-util')
 
-const caminho = '/tmp/gerador-lista-artefato-qas'
+const caminho = ['/tmp/gerador-lista-artefato-qas']
 let diretorio = {}
 
 // node_modules/jest/bin/jest.js --runInBand --verbose test/diretorio.test.js 
 // jest --runInBand --verbose test/diretorio.test.js 
 describe('test gerais', () => {
 
-    it('teste diretorio', async () => {
-
-        const caminho = '/tmp/gerador-lista-artefato-qas/bar'
-        const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
-
-        diretorio = require('../lib/diretorio')([caminho])
-
-        const lista = await diretorio.listarDiretorio()
-
-        // expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/bar')
-
-        gitBar.removerDiretorioTest()
-    })
-
     xit('teste diretorio', async () => {
 
-        const caminho = '/tmp/gerador-lista-artefato-qas/bar'
+        const caminho = ['/tmp/gerador-lista-artefato-qas/bar']
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
 
         diretorio = require('../lib/diretorio')(caminho)
@@ -41,32 +27,9 @@ describe('test gerais', () => {
         gitBar.removerDiretorioTest()
     })
 
-    xit('teste diretorio invalido', async () => {
+    it('teste listar sub-diretorios primeiro nivel', async () => {
 
-        diretorio = require('../lib/diretorio')(caminho)
-
-        return expect(diretorio.listarDiretorio()).rejects.toEqual(
-            new Error(`${caminho} não é um caminho válido`));
-    })
-
-    xit('teste diretorio com diretorio sem permissao de leitura no primeiro nivel', async () => {
-
-        const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
-        
-        const caminhoSemAcessoBar = caminho + path.sep + 'foo' + path.sep + 'bar'
-
-        fs.mkdirsSync(caminhoSemAcessoBar) ; fs.chmodSync(caminhoSemAcessoBar, 0o000);
-
-        diretorio = require('../lib/diretorio')(caminho)
-
-        const lista = await diretorio.listarDiretorio()
-
-        expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/foo')
-
-        gitFoo.removerDiretorioTest()
-    })
-
-    xit('teste listar sub-diretorios primeiro nivel', async () => {
+        const caminho = ['/tmp/gerador-lista-artefato-qas/bar']
 
         const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
@@ -84,7 +47,7 @@ describe('test gerais', () => {
 
     xit('teste listar sub-diretorios segundo nivel', async () => {
 
-        const caminhoSegundoNivel = nomeApp + path.sep + 'foo'
+        const caminhoSegundoNivel = [nomeApp + path.sep + 'foo']
 
         const gitFoo = await new GeradorTestUtil(caminhoSegundoNivel, 'foo', autor)
         const gitBar = await new GeradorTestUtil(caminhoSegundoNivel, 'bar', autor)
@@ -102,8 +65,8 @@ describe('test gerais', () => {
 
     xit('teste listar sub-diretorios primeiro e segundo nivel', async () => {
 
-        const caminhoPrimeiroNivel = nomeApp
-        const caminhoSegundoNivel = nomeApp + path.sep + 'foo'
+        const caminhoPrimeiroNivel = [nomeApp]
+        const caminhoSegundoNivel = [nomeApp + path.sep + 'foo']
 
         const gitFoo = await new GeradorTestUtil(caminhoPrimeiroNivel, 'bar', autor)
         const gitBar = await new GeradorTestUtil(caminhoSegundoNivel, 'foo', autor)
@@ -121,11 +84,11 @@ describe('test gerais', () => {
 
     xit('teste listar sub-diretorios até o quinto nível', async () => {
 
-        const caminhoPrimeiroNivel = nomeApp
-        const caminhoSegundoNivel = nomeApp + path.sep + 'foo'
-        const caminhoTerceiroNivel = nomeApp + path.sep + 'bar' + path.sep + 'qux'
-        const caminhoQuartoNivel = nomeApp + path.sep + 'baz' + path.sep + 'foobar' + path.sep + 'waldo'
-        const caminhoQuintoNivel = nomeApp + path.sep + 'quuz' + path.sep + 'fred' + path.sep + 'flob'
+        const caminhoPrimeiroNivel = [nomeApp]
+        const caminhoSegundoNivel = [nomeApp + path.sep + 'foo']
+        const caminhoTerceiroNivel = [nomeApp + path.sep + 'bar' + path.sep + 'qux']
+        const caminhoQuartoNivel = [nomeApp + path.sep + 'baz' + path.sep + 'foobar' + path.sep + 'waldo']
+        const caminhoQuintoNivel = [nomeApp + path.sep + 'quuz' + path.sep + 'fred' + path.sep + 'flob']
 
         fs.mkdirsSync(caminhoPrimeiroNivel + path.sep + 'agx')
         fs.mkdirsSync(caminhoSegundoNivel + path.sep + 'agx')
@@ -154,5 +117,30 @@ describe('test gerais', () => {
         gitBaz.removerDiretorioTest()
         gitQux.removerDiretorioTest()
         gitThu.removerDiretorioTest()
+    })
+
+    xit('teste diretorio invalido', async () => {
+
+        diretorio = require('../lib/diretorio')(caminho)
+
+        return expect(diretorio.listarDiretorio()).rejects.toEqual(
+            new Error(`${caminho} não é um caminho válido`));
+    })
+
+    xit('teste diretorio com diretorio sem permissao de leitura no primeiro nivel', async () => {
+
+        const gitFoo = await new GeradorTestUtil(nomeApp, 'foo', autor)
+
+        const caminhoSemAcessoBar = [caminho + path.sep + 'foo' + path.sep + 'bar']
+
+        fs.mkdirsSync(caminhoSemAcessoBar); fs.chmodSync(caminhoSemAcessoBar, 0o000);
+
+        diretorio = require('../lib/diretorio')(caminho)
+
+        const lista = await diretorio.listarDiretorio()
+
+        expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/foo')
+
+        gitFoo.removerDiretorioTest()
     })
 })
