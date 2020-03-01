@@ -13,9 +13,8 @@ let diretorio = {}
 // jest --runInBand --verbose test/diretorio.test.js 
 describe('test gerais', () => {
 
-    xit('teste diretorio', async () => {
+    it('teste diretorio', async () => {
 
-        const caminho = ['/tmp/gerador-lista-artefato-qas']
         const gitBar = await new GeradorTestUtil(nomeApp, 'bar', autor)
 
         diretorio = require('../lib/diretorio')(caminho)
@@ -27,7 +26,7 @@ describe('test gerais', () => {
         gitBar.removerDiretorioTest()
     })
 
-    xit('teste listar sub-diretorios primeiro nivel', async () => {
+    it('teste listar sub-diretorios primeiro nivel', async () => {
 
         const caminho = ['/tmp/gerador-lista-artefato-qas']
 
@@ -45,7 +44,7 @@ describe('test gerais', () => {
         gitBar.removerDiretorioTest()
     })
 
-    xit('teste listar sub-diretorios segundo nivel', async () => {
+    it('teste listar sub-diretorios segundo nivel', async () => {
 
         const caminhoSegundoNivel = [nomeApp + path.sep + 'foo']
 
@@ -63,7 +62,7 @@ describe('test gerais', () => {
         gitBar.removerDiretorioTest()
     })
 
-    xit('teste listar sub-diretorios primeiro e segundo nivel', async () => {
+    it('teste listar sub-diretorios primeiro e segundo nivel', async () => {
 
         const caminhoPrimeiroNivel = [nomeApp]
         const caminhoSegundoNivel = [nomeApp + path.sep + 'foo']
@@ -82,7 +81,7 @@ describe('test gerais', () => {
         gitBar.removerDiretorioTest()
     })
 
-    xit('teste listar sub-diretorios até o quinto nível', async () => {
+    it('teste listar sub-diretorios até o quinto nível', async () => {
 
         const caminhoPrimeiroNivel = [nomeApp]
         const caminhoSegundoNivel = [nomeApp + path.sep + 'foo']
@@ -119,12 +118,13 @@ describe('test gerais', () => {
         gitThu.removerDiretorioTest()
     })
 
-    xit('teste diretorio invalido', async () => {
+    it('teste diretorio invalido', async () => {
 
         diretorio = require('../lib/diretorio')(caminho)
 
-        return expect(diretorio.listarDiretorio()).rejects.toEqual(
-            new Error(`${caminho} não é um caminho válido`));
+        const lista = await diretorio.listarDiretorio()
+
+        expect(lista).toEqual([])
     })
 
     it('teste diretorio com sub diretorio sem permissao de leitura no primeiro nivel', async () => {
@@ -133,9 +133,9 @@ describe('test gerais', () => {
 
         const caminhoSemAcesso = caminho + path.sep + 'foo' + path.sep + 'bar'
 
-        fs.mkdirsSync(caminhoSemAcesso); fs.chmodSync(caminhoSemAcesso, 0o000);
+        fs.mkdirsSync(caminhoSemAcesso) ; fs.chmodSync(caminhoSemAcesso, 0o000)
 
-        diretorio = require('../lib/diretorio')([caminho])
+        diretorio = require('../lib/diretorio')(caminho)
 
         const lista = await diretorio.listarDiretorio()
 
