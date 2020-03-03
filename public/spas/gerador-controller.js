@@ -33,19 +33,23 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
         limparMessages()
         limparFiltros()
 
-        listarDiretorio(obterCaminhoDiretorioPadrao())
+        listarDiretorioPadrao()
+    }
+
+    function listarDiretorioPadrao() {
+
+        listarDiretorio([geradorConstants.TIPO_DIRETORIO_PADRAO[deviceDetector.os]])
+            .then(({ data }) => {
+                vm.req.listaProjeto = data
+            })
     }
 
     function listarDiretorio(listaDiretorio) {
 
         blockUI.start()
 
-        geradorService.listarDiretorio(listaDiretorio)
-            .then((resposta) => {
-
-                vm.req.listaProjeto = resposta.data
-
-            }).catch((error) => {
+        return geradorService.listarDiretorio(listaDiretorio)
+            .catch((error) => {
 
                 adicionarMensagemErro(error.data.message,
                     geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
@@ -53,11 +57,6 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
                 vm.listaCaminhoProjeto = []
 
             }).finally(() => blockUI.stop())
-    }
-
-    function obterCaminhoDiretorioPadrao() {
-
-        return { listaDiretorio: [geradorConstants.TIPO_DIRETORIO_PADRAO[deviceDetector.os]] }
     }
 
     function listarArtefatos() {
@@ -142,6 +141,7 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
         if (vm.listaCaminhoProjeto) {
 
             const listaProjeto = vm.listaCaminhoProjeto.split(',')
+            const listaPesquisa = []
 
             for (const projeto of listaProjeto) {
 
@@ -149,16 +149,20 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
                     projeto.trim() === projetoSome)
 
                 if (!contemProjeto)
-                    vm.req.listaProjeto.push(projeto.trim())
+                    listaPesquisa.push(projeto.trim())
                 else
                     adicionarMensagemErro(`${projeto.trim()} já consta na lista de projetos`,
                         geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
             }
 
-            listarDiretorio(vm.req.listaProjeto)
+            listarDiretorio(listaPesquisa).then(({ data }) => {
 
-            !vm.req.listaProjeto.length && adicionarMensagemErro
-                ('Nenhum diretório encontrado', geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
+                if (data.length)
+                    vm.req.listaProjeto.push.apply(vm.req.listaProjeto, data)
+                else
+                    adicionarMensagemErro('Nenhum diretório encontrado',
+                        geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
+            })
 
             delete vm.listaCaminhoProjeto
         }
