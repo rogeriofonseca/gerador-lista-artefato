@@ -155,16 +155,23 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
                         geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
             }
 
-            listarDiretorio(listaPesquisa).then(({ data }) => {
+            if (listaPesquisa.length) {
 
-                if (data.length)
-                    vm.req.listaProjeto.push.apply(vm.req.listaProjeto, data)
-                else
-                    adicionarMensagemErro('Nenhum diretório encontrado',
-                        geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
-            })
+                listarDiretorio(listaPesquisa).then(({ data }) => {
 
-            delete vm.listaCaminhoProjeto
+                    if (data.length) {
+                        for (const diretorio of data) {
+                            if (!vm.req.listaProjeto.some(proj => proj === diretorio))
+                                vm.req.listaProjeto.push(diretorio)
+                        }
+                    }
+                    else
+                        adicionarMensagemErro('Nenhum diretório encontrado',
+                            geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
+                })
+
+                delete vm.listaCaminhoProjeto
+            }
         }
     }
 
