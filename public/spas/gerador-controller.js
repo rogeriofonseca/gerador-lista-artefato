@@ -160,10 +160,9 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
                 listarDiretorio(listaPesquisa).then(({ data }) => {
 
                     if (data.length) {
-                        for (const diretorio of data) {
+                        for (const diretorio of data)
                             if (!vm.req.listaProjeto.some(proj => proj === diretorio))
                                 vm.req.listaProjeto.push(diretorio)
-                        }
                     }
                     else
                         adicionarMensagemErro('Nenhum diretório encontrado',
