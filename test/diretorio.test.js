@@ -174,8 +174,7 @@ describe('test gerais', () => {
         const gitBar = await new GeradorTestUtil('bar', autor)
 
         diretorio = require('../lib/diretorio')([
-            caminhoFoo,
-            caminhoBar
+            caminhoFoo, caminhoBar
         ])
 
         const lista = await diretorio.listarDiretorio()
@@ -183,5 +182,35 @@ describe('test gerais', () => {
         expect(lista[0]).toBe(caminhoBar)
 
         gitBar.removerDiretorioTest()
+    })
+
+    it('teste listar com dois caminhos invalidos', async () => {
+
+        const caminhoFoo = caminho + path.sep + 'foo'
+
+        diretorio = require('../lib/diretorio')([
+            caminhoFoo, caminhoFoo, caminhoFoo, caminhoFoo
+        ])
+
+        const lista = await diretorio.listarDiretorio()
+
+        expect(lista).toEqual([])
+    })
+
+    it('teste listar com caminhos repetidos', async () => {
+
+        const caminhoFoo = caminho + path.sep + 'foo'
+
+        const gitFoo = await new GeradorTestUtil('foo', autor)
+
+        diretorio = require('../lib/diretorio')([
+            caminhoFoo, caminhoFoo, caminhoFoo, caminhoFoo
+        ])
+
+        const lista = await diretorio.listarDiretorio()
+
+        expect(lista[0]).toBe(caminhoFoo)
+
+        gitFoo.removerDiretorioTest()
     })
 })

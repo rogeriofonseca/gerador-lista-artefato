@@ -23,7 +23,7 @@ angular
 
         TIPO_DIRETORIO_PADRAO: {
             windows: 'C:/kdi/git',
-            linux: '/tmp',
+            linux: '/kdi/git',
             mac: '/kdi/git'
         },
     })
