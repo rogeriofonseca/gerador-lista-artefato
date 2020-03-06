@@ -3,20 +3,20 @@ const crypto = require('crypto')
 const fs = require('fs-extra')
 
 const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
+const appName = require('../package.json').name
 
-module.exports = function (caminho, nomeProjeto, autor) {
+module.exports = function (caminho, autor) {
 
-    this.caminho = '/tmp' + path.sep + caminho
-    this.nomeProjeto = nomeProjeto
+    this.caminho = '/tmp' + path.sep + appName + path.sep + caminho
     this.autor = autor
 
     this.criarRepo = async function () {
 
-        this.removerDiretorioProjeto(this.obterCaminhoProjeto())
+        this.removerDiretorioProjeto(this.caminho)
 
-        fs.mkdirsSync(this.obterCaminhoProjeto())
+        fs.mkdirsSync(this.caminho)
 
-        this.git = require('simple-git/promise')(this.obterCaminhoProjeto())
+        this.git = require('simple-git/promise')(this.caminho)
 
         await this.git.init()
         await this.git.addConfig('user.name', this.autor)
@@ -24,11 +24,11 @@ module.exports = function (caminho, nomeProjeto, autor) {
     }
 
     this.obterCaminhoProjeto = function () {
-        return `${this.caminho}/${this.nomeProjeto}`
+        return `${this.caminho}`
     }
 
     this.obterCaminhoArquivo = function (pathArquivo) {
-        return `${this.obterCaminhoProjeto()}/${pathArquivo}`
+        return `${this.caminho}/${pathArquivo}`
     }
 
     this.removerDiretorioProjeto = async function (caminho) {
