@@ -45,19 +45,6 @@ describe('test gerais', () => {
         expect(params.listaProjeto[0]).toBe('bar')
     });
 
-    it('teste de listagem de artefatos com projeto inválido', () => {
-
-        const paramsError = new Param({
-            autor: "fulano",
-            listaProjeto: ["bar"],
-            listaTarefa: ["1111111"]
-        })
-
-        expect.assertions(1);
-        return expect(gerador(paramsError).gerarListaArtefato()).rejects.toEqual(
-            new Error(`Projeto ${paramsError.listaProjeto[0]} não encontrado`));
-    })
-
     it('teste de listagem de artefatos renomeados', async () => {
 
         await gitUtil.manipularListaArquivoComCommit('1111111', [
