@@ -2,8 +2,6 @@ const path = require('path')
 const fs = require('fs-extra')
 
 const autor = 'fulano'
-const nomeApp = require('../package.json').name
-
 const GeradorTestUtil = require('./gerador-test-util')
 
 const caminho = ['/tmp/gerador-lista-artefato-qas']
@@ -23,7 +21,7 @@ describe('test gerais', () => {
 
         expect(lista[0]).toBe(caminho + '/bar')
 
-        gitBar.removerDiretorioTest()
+        gitBar.removerDiretorioProjeto()
     })
 
     it('teste listar sub-diretorios primeiro nivel', async () => {
@@ -38,8 +36,8 @@ describe('test gerais', () => {
         expect(lista[0]).toBe(caminho + '/bar')
         expect(lista[1]).toBe(caminho + '/foo')
 
-        gitFoo.removerDiretorioTest()
-        gitBar.removerDiretorioTest()
+        gitFoo.removerDiretorioProjeto()
+        gitBar.removerDiretorioProjeto()
     })
 
     it('teste listar sub-diretorios segundo nivel', async () => {
@@ -58,8 +56,8 @@ describe('test gerais', () => {
         expect(lista[0]).toBe(caminho + '/foo/bar')
         expect(lista[1]).toBe(caminho + '/foo/foo')
 
-        gitFoo.removerDiretorioTest()
-        gitBar.removerDiretorioTest()
+        gitFoo.removerDiretorioProjeto()
+        gitBar.removerDiretorioProjeto()
     })
 
     it('teste listar sub-diretorios primeiro e segundo nivel', async () => {
@@ -77,8 +75,8 @@ describe('test gerais', () => {
         expect(lista[0]).toBe(caminho + '/bar')
         expect(lista[1]).toBe(caminho + '/foo/foo')
 
-        gitFoo.removerDiretorioTest()
-        gitBar.removerDiretorioTest()
+        gitFoo.removerDiretorioProjeto()
+        gitBar.removerDiretorioProjeto()
     })
 
     it('teste listar sub-diretorios até o quinto nível', async () => {
@@ -104,11 +102,11 @@ describe('test gerais', () => {
         expect(lista[3]).toBe(caminho + '/foo/foo')
         expect(lista[4]).toBe(caminho + '/quuz/fred/flob/thu')
 
-        gitBar.removerDiretorioTest()
-        gitFoo.removerDiretorioTest()
-        gitBaz.removerDiretorioTest()
-        gitQux.removerDiretorioTest()
-        gitThu.removerDiretorioTest()
+        gitBar.removerDiretorioProjeto()
+        gitFoo.removerDiretorioProjeto()
+        gitBaz.removerDiretorioProjeto()
+        gitQux.removerDiretorioProjeto()
+        gitThu.removerDiretorioProjeto()
     })
 
     it('teste diretorio invalido', async () => {
@@ -134,7 +132,7 @@ describe('test gerais', () => {
 
         expect(lista[0]).toBe('/tmp/gerador-lista-artefato-qas/foo')
 
-        gitFoo.removerDiretorioTest()
+        gitFoo.removerDiretorioProjeto()
     })
 
     it('teste listar com dois caminhos', async () => {
@@ -162,8 +160,8 @@ describe('test gerais', () => {
         expect(lista[2]).toBe(caminhoBaz)
         expect(lista[3]).toBe(caminhoQux)
 
-        gitBar.removerDiretorioTest()
-        gitFoo.removerDiretorioTest()
+        gitBar.removerDiretorioProjeto()
+        gitFoo.removerDiretorioProjeto()
     })
 
     it('teste listar com dois caminhos: um git repo e outro não', async () => {
@@ -181,7 +179,7 @@ describe('test gerais', () => {
 
         expect(lista[0]).toBe(caminhoBar)
 
-        gitBar.removerDiretorioTest()
+        gitBar.removerDiretorioProjeto()
     })
 
     it('teste listar com dois caminhos invalidos', async () => {
@@ -211,6 +209,10 @@ describe('test gerais', () => {
 
         expect(lista[0]).toBe(caminhoFoo)
 
-        gitFoo.removerDiretorioTest()
+        gitFoo.removerDiretorioProjeto()
+    })
+
+    afterAll(async () => {
+        gitUtil.removerDiretorioTest()
     })
 })

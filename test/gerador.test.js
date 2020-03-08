@@ -1,5 +1,3 @@
-const path = require('path')
-
 const Param = require('../models/param')
 const GeradorTestUtil = require('./gerador-test-util')
 
@@ -92,6 +90,19 @@ describe('test gerais', () => {
         expect(lista[2].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.MODIFIED)
         expect(lista[2].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
         expect(lista[2].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoQux.txt')
+    })
+
+    it('teste de listagem de artefatos com projeto inválido', () => {
+
+        const paramsError = new Param({
+            autor: "fulano",
+            listaProjeto: ["qux"],
+            listaTarefa: ["1111111"]
+        })
+
+        expect.assertions(1);
+        return expect(gerador(paramsError).gerarListaArtefato()).rejects.toEqual(
+            new Error(`Projeto ${paramsError.listaProjeto[0]} não encontrado`));
     })
 
     it('teste de listagem de artefatos renomeados 2 vezes', async () => {
@@ -474,6 +485,9 @@ describe('test gerais', () => {
         expect(lista[1].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
         expect(lista[1].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
         expect(lista[1].listaArtefatoSaida[0].nomeArtefato).toMatch(/.*arquivoQux.txt$/g)
+
+        gitQux.removerDiretorioProjeto()
+        gitBaz.removerDiretorioProjeto()
     })
 
     it('teste de listagem com arquivos com extensoes diferentes separados', async () => {
@@ -748,6 +762,13 @@ describe('test gerais', () => {
         expect(lista[9].listaArtefatoSaida[1].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
         expect(lista[9].listaArtefatoSaida[1].numeroAlteracao).toBe(1)
         expect(lista[9].listaArtefatoSaida[1].nomeArtefato).toBe('foo/karma.conf.js')
+
+        gitFoo.removerDiretorioProjeto()
+        gitBar.removerDiretorioProjeto()
+    })
+
+    afterEach(async () => {
+        gitUtil.removerDiretorioProjeto()
     })
 
     afterAll(async () => {

@@ -3,16 +3,17 @@ const crypto = require('crypto')
 const fs = require('fs-extra')
 
 const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
-const appName = require('../package.json').name
+const APP_NAME = require('../package.json').name
+const DIRETORIO_TEST = '/tmp' + path.sep + APP_NAME
 
 module.exports = function (caminho, autor) {
 
-    this.caminho = '/tmp' + path.sep + appName + path.sep + caminho
+    this.caminho = DIRETORIO_TEST + path.sep + caminho
     this.autor = autor
 
     this.criarRepo = async function () {
 
-        this.removerDiretorioProjeto(this.caminho)
+        this.removerDiretorioProjeto()
 
         fs.mkdirsSync(this.caminho)
 
@@ -31,12 +32,12 @@ module.exports = function (caminho, autor) {
         return `${this.caminho}/${pathArquivo}`
     }
 
-    this.removerDiretorioProjeto = async function (caminho) {
-        fs.removeSync(caminho)
+    this.removerDiretorioProjeto = async function () {
+        fs.removeSync(this.caminho)
     }
 
     this.removerDiretorioTest = async function () {
-        fs.removeSync(this.caminho)
+        fs.removeSync(DIRETORIO_TEST)
     }
 
     this.checkoutBranch = async function (nomeBranch) {
