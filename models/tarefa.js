@@ -1,7 +1,9 @@
 const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
 
-const Tarefa = function (numeroTarefa, tipoAlteracao) {
-
+const Tarefa = function ({
+    numeroTarefa,
+    tipoAlteracao
+}) {
     this.numeroTarefa = numeroTarefa
     this.tipoAlteracao = tipoAlteracao
     this.numeroAlteracao = 1
