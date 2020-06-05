@@ -14,7 +14,6 @@ App para listar os artefatos incluídos/alterados/renomeados para geração do Q
 - Executar o comando `git pull --all` antes de usar o script
 - Não utilizar espaços nos nomes dos arquivos
 - Configurar corretamente as variáveis do Git `user.name` e `user.email` com matrícula e email
-- Verificar se os merges estão sendo realizados de maneira correta
 - Utilizar o comando `git mv` para renomear os artefatos
 
 ## Download 
