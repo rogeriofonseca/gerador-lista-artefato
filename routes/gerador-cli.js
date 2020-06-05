@@ -1,6 +1,9 @@
 const path = require('path')
 const Param = require('../models/param')
 
+const GeradorOfManager = require('../lib/gerador-ofmanager')
+const GeradorQas = require('../lib/gerador-qas')
+
 const TIPO_LISTAGEM = require('../lib/constants').TIPO_LISTAGEM
 
 module.exports = async function (commander) {
@@ -43,10 +46,10 @@ module.exports = async function (commander) {
 
         function obterTipoGerador(tipoListagem, params) {
 
-            if(tipoListagem == TIPO_LISTAGEM.QAS)
-                return require('../lib/gerador-qas')(params)
-
-            return require('../lib/gerador-ofmanager')(params)
+            if (tipoListagem == TIPO_LISTAGEM.QAS)
+                return new GeradorQas(params)
+    
+            return new GeradorOfManager(params)
         }
     }
 }
