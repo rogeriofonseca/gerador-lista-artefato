@@ -14,7 +14,6 @@ App para listar os artefatos incluídos/alterados/renomeados para geração do Q
 - Executar o comando `git pull --all` antes de usar o script
 - Não utilizar espaços nos nomes dos arquivos
 - Configurar corretamente as variáveis do Git `user.name` e `user.email` com matrícula e email
-- Verificar se os merges estão sendo realizados de maneira correta
 - Utilizar o comando `git mv` para renomear os artefatos
 
 ## Download 
@@ -67,6 +66,7 @@ $ ./gerador-lista-artefato-qas.exe --diretorio=C:/kdi/git --projeto=foo-estatico
   -p, --projeto <type>       Lista de projetos Git (podem ser passados vários projetos separados por vírgula)
   -a, --autor <type>         Matrícula do autor dos commits
   -t, --task <type>          Lista de tarefas (podem ser passadas várias tarefas separadas por vírgula)
+  -l, --listagem <type>      Tipo da listagem QAS ou OFMANAGER (Opcional) (default: "OFMANAGER")
   --mostrar-num-modificacao  Nº de modificações do artefato na tarefa ou tarefas (Opcional)
   --mostrar-deletados        Mostra artefatos deletados na tarefa (Opcional)
   --mostrar-renomeados       Mostra artefatos renomeados na tarefa (Opcional)
