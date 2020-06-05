@@ -6,25 +6,44 @@
     "configurations": [
         {
             "type": "node",
-            "request": "attach",
-            "name": "server attach",
-            "processId": "${command:PickProcess}",
-            "protocol": "inspector",
-            "restart": true
+            "request": "launch",
+            "name": "server launch",
+            "program": "${workspaceFolder}/app.js",
+            "cwd": "${workspaceFolder}",
+            "restart": true,
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
         },
         {
             // node app --diretorio=/home/foo/Documents --projeto=foo-estatico,foo-api --autor=diegomdrs --task=1111111 --mostrar-num-modificacao --mostrar-deletados --mostrar-commits-locais
+            "name": "jest gerador-qas",
             "type": "node",
             "request": "launch",
-            "name": "jest",
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-            "args": [
-                "-i",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/.bin/jest",
                 "--runInBand",
-                "--verbose",
-                "test/gerador.test.js"
+                "test/gerador-qas.test.js"
             ],
-            "internalConsoleOptions": "openOnSessionStart"
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
+        },
+        {
+            // node app --diretorio=/home/foo/Documents --projeto=foo-estatico,foo-api --autor=diegomdrs --task=1111111 --mostrar-num-modificacao --mostrar-deletados --mostrar-commits-locais
+            "name": "jest gerador-ofmanager",
+            "type": "node",
+            "request": "launch",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/.bin/jest",
+                "--runInBand",
+                "test/gerador-ofmanager.test.js"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "port": 9229
         },
         {
             // jest --runInBand --verbose test/gerador.test.js

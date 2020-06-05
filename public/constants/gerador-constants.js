@@ -2,11 +2,16 @@ angular
     .module('geradorApp')
     .constant('geradorConstants', {
 
+        TIPO_LISTAGEM: {
+            OFMANAGER: 'OFMANAGER',
+            QAS: 'QAS'
+        },
+
         TIPO_MODIFICACAO: {
-            A: 'Criado',
-            M: 'Alterado',
-            R: 'Renomeado',
-            D: 'Deletado'
+            ADDED: { codigo: 'A', descricao: 'Criado' },
+            MODIFIED: { codigo: 'M', descricao: 'Alterado' },
+            RENAMED: { codigo: 'R', descricao: 'Renomeado' },
+            DELETED: { codigo: 'D', descricao: 'Deletado' }
         },
 
         TIPO_ALERTA: {
@@ -18,8 +23,6 @@ angular
             DEFAULT: { class: 'alert alert-dismissible' },
             TOP: { class: 'alert alert-dismissible container alert-top' },
         },
-
-        TIMEOUT_ALERTA: 4000,
 
         TIPO_DIRETORIO_PADRAO: {
             windows: 'C:/kdi/git',

@@ -1,20 +1,23 @@
 angular
-	.module('geradorApp', [
-		'ngRoute',
-		'ngResource',
-		'blockUI',
-		'ng.deviceDetector']
-	)
-	.config(configure);
+	.module('geradorApp',
+		[
+			'ngRoute',
+			'ngResource',
+			'blockUI',
+			'ng.deviceDetector',
+			'ngFileSaver',
+			'angular.filter'
+
+		]).config(configure);
 
 configure.$inject = [
-	'$routeProvider', 
+	'$routeProvider',
 	'$locationProvider',
 	'blockUIConfig'
 ];
 
 function configure(
-	$routeProvider, 
+	$routeProvider,
 	$locationProvider,
 	blockUIConfig) {
 

@@ -1,6 +1,8 @@
 const path = require('path')
 const Param = require('../models/param')
 
+const TIPO_LISTAGEM = require('../lib/constants').TIPO_LISTAGEM
+
 module.exports = async function (commander) {
 
     init()
@@ -8,9 +10,7 @@ module.exports = async function (commander) {
     async function init() {
 
         try {
-            commander.projeto = commander.projeto.map(function (nomeProjeto) {
-                return path.join(commander.diretorio, nomeProjeto)
-            })
+            commander.projeto = obterListaProjeto()
 
             delete commander.diretorio
 
@@ -24,15 +24,29 @@ module.exports = async function (commander) {
                 mostrarNumModificacao: commander.mostrarNumModificacao
             })
 
-            const gerador = require('../lib/gerador')(params)
+            const gerador = obterTipoGerador(commander.listagem, params)
             const listaSaida = await gerador.gerarListaArtefato()
             const printer = require('../lib/printer')(params, listaSaida)
 
-            printer.imprimirListaSaida(listaSaida)
+            printer.imprimirListaSaida()
 
         } catch ({ message }) {
 
             console.log(message)
+        }
+
+        function obterListaProjeto() {
+            return commander.projeto.map(function (nomeProjeto) {
+                return path.join(commander.diretorio, nomeProjeto)
+            })
+        }
+
+        function obterTipoGerador(tipoListagem, params) {
+
+            if(tipoListagem == TIPO_LISTAGEM.QAS)
+                return require('../lib/gerador-qas')(params)
+
+            return require('../lib/gerador-ofmanager')(params)
         }
     }
 }

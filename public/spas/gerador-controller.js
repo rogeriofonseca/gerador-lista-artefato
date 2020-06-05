@@ -2,9 +2,9 @@ angular
     .module('geradorApp')
     .controller('GeradorController', GeradorController)
 
-GeradorController.$inject = ['geradorService', 'blockUI', 'clipboardUtil', 'geradorConstants', 'deviceDetector'];
+GeradorController.$inject = ['FileSaver', 'Blob', 'geradorService', 'blockUI', 'clipboardUtil', 'geradorConstants', 'deviceDetector'];
 
-function GeradorController(geradorService, blockUI, clipboardUtil, geradorConstants, deviceDetector) {
+function GeradorController(FileSaver, Blob, geradorService, blockUI, clipboardUtil, geradorConstants, deviceDetector) {
     var vm = this
 
     vm.listaSaida = []
@@ -12,36 +12,34 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
     vm.TIPO_ALERTA = geradorConstants.TIPO_ALERTA
     vm.TIPO_MODIFICACAO = geradorConstants.TIPO_MODIFICACAO
+    vm.TIPO_LISTAGEM = geradorConstants.TIPO_LISTAGEM
 
     vm.init = init
     vm.listarArtefatos = listarArtefatos
     vm.limparFiltros = limparFiltros
 
     vm.obterNumero = obterNumero
+    vm.obterDescricaoModificacao = obterDescricaoModificacao
+
     vm.adicionarCaminhoProjeto = adicionarCaminhoProjeto
     vm.removerCaminhoProjeto = removerCaminhoProjeto
     vm.adicionarTask = adicionarTask
     vm.removerTask = removerTask
     vm.obterNomeProjeto = obterNomeProjeto
     vm.obterNomeArtefato = obterNomeArtefato
-    vm.copiarLinhaTabelaClipboard = copiarLinhaTabelaClipboard
-    vm.copiarTabelaPlainTextClipboard = copiarTabelaPlainTextClipboard
-    vm.copiarTabelaClipboard = copiarTabelaClipboard
+    vm.copiarLinhaClipboardOfManager = copiarLinhaClipboardOfManager
+    vm.copiarLinhaClipboardQas = copiarLinhaClipboardQas
+    vm.exportarArquivoCsv = exportarArquivoCsv
+    vm.exportarArquivoTxt = exportarArquivoTxt
+    vm.close = close
 
     async function init() {
 
         limparMessages()
         limparFiltros()
 
-        listarDiretorioPadrao()
-    }
-
-    function listarDiretorioPadrao() {
-
-        listarDiretorio([geradorConstants.TIPO_DIRETORIO_PADRAO[deviceDetector.os]])
-            .then(({ data }) => {
-                vm.req.listaProjeto = data
-            })
+        vm.listaCaminhoProjeto = 
+            geradorConstants.TIPO_DIRETORIO_PADRAO[deviceDetector.os]
     }
 
     function listarDiretorio(listaDiretorio) {
@@ -64,6 +62,8 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
         limparMessages()
 
         if (vm.req.listaTarefa.length && vm.req.listaProjeto.length) {
+
+            vm.req.tipoListagem = vm.tipoListagem
 
             blockUI.start()
 
@@ -97,9 +97,15 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
     function obterNumero(saida) {
 
         if (saida.listaArtefatoSaida.length === 1)
-            return saida.listaNumTarefaSaida.length
+            return saida.listaNumeroTarefaSaida.length
         else
             return saida.listaArtefatoSaida.length
+    }
+
+    function obterDescricaoModificacao(codigoModificacao) {
+
+        return Object.values(vm.TIPO_MODIFICACAO).find(
+            tipoModificacao => tipoModificacao.codigo === codigoModificacao).descricao
     }
 
     function removerTask(taskRemocao) {
@@ -210,6 +216,8 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
 
         limparMessages()
 
+        vm.tipoListagem = vm.TIPO_LISTAGEM.OFMANAGER
+
         vm.req = {
             listaProjeto: [],
             listaTarefa: [],
@@ -234,33 +242,133 @@ function GeradorController(geradorService, blockUI, clipboardUtil, geradorConsta
             : artefato.nomeArtefato
     }
 
-    function copiarTabelaPlainTextClipboard() {
+    function exportarArquivoCsv() {
 
         limparMessages()
 
-        clipboardUtil.copiarTabelaClipboard(vm.listaSaida)
+        blockUI.start()
 
-        adicionarMensagemSucesso('Dados da tabela copiados para o clipboard',
-            geradorConstants.TIPO_POSICAO_ALERT.TOP)
+        geradorService.obterListaArtefatoCsv(vm.req)
+            .then((resposta) => {
+
+                if (resposta.data) {
+
+                    var data = new Blob([resposta.data], { type: 'text/csv;charset=utf-8' })
+                    FileSaver.saveAs(data, 'lista-artefato.csv')
+
+                } else
+                    adicionarMensagemErro
+                        ('Nenhum resultado encontrado', geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
+
+            }).catch((error) => {
+
+                adicionarMensagemErro(error.data.message,
+                    geradorConstants.TIPO_POSICAO_ALERT.DEFAULT)
+
+            }).finally(() => blockUI.stop())
     }
 
-    function copiarTabelaClipboard() {
+    function exportarArquivoTxt() {
 
         limparMessages()
 
-        clipboardUtil.copiarTabelaClipboardTabulado(vm.listaSaida)
+        const textoSaida = vm.req.tipoListagem === vm.TIPO_LISTAGEM.OFMANAGER ?
+            obterTextoListaSaidaOfManager(vm.listaSaida) : obterTextoListaSaidaQas(vm.listaSaida)
 
-        adicionarMensagemSucesso('Dados da tabela copiados para o clipboard',
-            geradorConstants.TIPO_POSICAO_ALERT.TOP)
+        var data = new Blob([textoSaida], { type: 'text/txt;charset=utf-8' })
+        FileSaver.saveAs(data, 'lista-artefato.txt')
     }
 
-    function copiarLinhaTabelaClipboard(saida) {
+    function copiarLinhaClipboardOfManager(listaArtefato) {
 
         limparMessages()
 
-        clipboardUtil.copiarTabelaClipboard([saida])
+        const textoSaida = obterTextoListaArtefatoOfManager(listaArtefato)
+
+        clipboardUtil.copiarTabelaClipboard(textoSaida)
 
         adicionarMensagemSucesso('Dados da linha copiados para o clipboard',
             geradorConstants.TIPO_POSICAO_ALERT.TOP)
+    }
+
+    function copiarLinhaClipboardQas(saida) {
+
+        limparMessages()
+
+        const textoSaida = obterTextoListaSaidaQas([saida])
+
+        clipboardUtil.copiarTabelaClipboard(textoSaida)
+
+        adicionarMensagemSucesso('Dados da linha copiados para o clipboard',
+            geradorConstants.TIPO_POSICAO_ALERT.TOP)
+    }
+
+    function obterTextoListaSaidaOfManager(listaSaida) {
+
+        return listaSaida.reduce((saidaTexto, saida) => {
+
+            saidaTexto = saidaTexto.concat(`\nTarefa nº ${saida.listaNumeroTarefaSaida[0]}\n`)
+            saidaTexto = saidaTexto.concat(obterTextoListaArtefatoOfManager(saida.listaArtefatoSaida))
+            saidaTexto = saidaTexto.concat('\n')
+
+            return saidaTexto
+        }, '')
+    }
+
+    function obterTextoListaSaidaQas(listaSaida) {
+
+        return listaSaida.reduce((saidaTexto, saida) => {
+
+            if (saida.listaNumeroTarefaSaida.length === 1)
+                saidaTexto = saidaTexto.concat(
+                    `\nTarefa nº ${saida.listaNumeroTarefaSaida[0]}\n`)
+
+            else if (saida.listaNumeroTarefaSaida.length > 1)
+                saidaTexto = saidaTexto.concat(
+                    `\nTarefas nº ${saida.listaNumeroTarefaSaida.join(', ')}\n`)
+
+            saidaTexto = saidaTexto.concat(obterTextoListaArtefatoQas(saida.listaArtefatoSaida))
+            saidaTexto = saidaTexto.concat('\n')
+
+            return saidaTexto
+        }, '')
+    }
+
+    function obterTextoListaArtefatoOfManager(listaArtefato) {
+
+        return listaArtefato.reduce((saidaTexto, artefato) => {
+
+            if (artefato.tipoAlteracao !== vm.TIPO_MODIFICACAO.RENAMED.codigo &&
+                artefato.tipoAlteracao !== vm.TIPO_MODIFICACAO.DELETED.codigo) {
+
+                saidaTexto = saidaTexto.concat('\n')
+
+                if (artefato.tipoAlteracao === vm.TIPO_MODIFICACAO.ADDED.codigo)
+                    saidaTexto = saidaTexto.concat('+')
+
+                saidaTexto = saidaTexto.concat(artefato.nomeArtefato)
+            }
+
+            return saidaTexto
+        }, '')
+    }
+
+    function obterTextoListaArtefatoQas(listaArtefato) {
+
+        return listaArtefato.reduce((saidaTexto, artefato) => {
+
+            saidaTexto = saidaTexto.concat(`\n${artefato.tipoAlteracao}\t`)
+
+            if (artefato.tipoAlteracao === geradorConstants.TIPO_MODIFICACAO.RENAMED.codigo)
+                saidaTexto = saidaTexto.concat(`${artefato.nomeAntigoArtefato}\t${artefato.nomeNovoArtefato}`)
+            else
+                saidaTexto = saidaTexto.concat(artefato.nomeArtefato)
+
+            return saidaTexto
+        }, '')
+    }
+
+    function close($index) {
+        vm.alerts.splice($index, 1)
     }
 }
