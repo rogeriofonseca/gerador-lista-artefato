@@ -6,7 +6,7 @@ const geradorCvs = require('../lib/gerador-cvs')
 const GeradorOfManager = require('../lib/gerador-ofmanager')
 const GeradorQas = require('../lib/gerador-qas')
 
-const TIPO_LISTAGEM = require('../lib/constants').TIPO_LISTAGEM
+const { TIPO_LISTAGEM } = require('../lib/constants')
 
 module.exports = function (app) {
 

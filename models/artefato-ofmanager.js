@@ -1,4 +1,4 @@
-const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
+const { TIPO_MODIFICACAO } = require('../lib/constants')
 
 const Artefato = function ({
     nomeArtefato,

@@ -1,7 +1,7 @@
 const Param = require('../models/param')
 const GeradorTestUtil = require('./gerador-test-util')
 
-const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
+const { TIPO_MODIFICACAO } = require('../lib/constants')
 
 const nomeProjeto = 'foo'
 const autor = 'fulano'

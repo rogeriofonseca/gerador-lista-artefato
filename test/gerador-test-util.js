@@ -2,7 +2,7 @@ const path = require('path')
 const crypto = require('crypto')
 const fs = require('fs-extra')
 
-const TIPO_MODIFICACAO = require('../lib/constants').TIPO_MODIFICACAO
+const { TIPO_MODIFICACAO } = require('../lib/constants')
 const APP_NAME = require('../package.json').name
 const DIRETORIO_TEST = '/tmp' + path.sep + APP_NAME
 
