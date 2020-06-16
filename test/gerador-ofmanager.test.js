@@ -61,15 +61,8 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expect(lista[0].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
-            expect(lista[0].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoQux.txt')
-
-            expect(lista[0].listaArtefatoSaida[1].tipoAlteracao).toBe(TIPO_MODIFICACAO.RENAMED)
-            expect(lista[0].listaArtefatoSaida[1].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[1].nomeArtefato).toBe('foo/arquivoQux.txt')
-            expect(lista[0].listaArtefatoSaida[1].nomeAntigoArtefato).toBe('foo/arquivoFoo.txt')
-            expect(lista[0].listaArtefatoSaida[1].nomeNovoArtefato).toBe('foo/arquivoQux.txt')
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoQux.txt'))
+            expect(lista[0].listaArtefatoSaida[1]).toMatchObject(obterObj(TIPO_MODIFICACAO.RENAMED, 1, 'foo/arquivoQux.txt', 'foo/arquivoFoo.txt', 'foo/arquivoQux.txt'))
 
             expect(lista[1].listaNumeroTarefaSaida).toHaveLength(1)
             expect(lista[1].listaNumeroTarefaSaida[0]).toBe('2222222')
@@ -108,9 +101,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(3)
 
-            expect(lista[0].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
-            expect(lista[0].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoBar.txt')
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt'))
 
             expect(lista[0].listaArtefatoSaida[1].tipoAlteracao).toBe(TIPO_MODIFICACAO.RENAMED)
             expect(lista[0].listaArtefatoSaida[1].numeroAlteracao).toBe(1)
@@ -159,9 +150,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expect(lista[0].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.DELETED)
-            expect(lista[0].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoBar.txt')
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt'))
 
             expect(lista[0].listaArtefatoSaida[1].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
             expect(lista[0].listaArtefatoSaida[1].numeroAlteracao).toBe(1)
@@ -190,9 +179,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expect(lista[0].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.DELETED)
-            expect(lista[0].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoBar.txt')
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt'))
 
             expect(lista[0].listaArtefatoSaida[1].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
             expect(lista[0].listaArtefatoSaida[1].numeroAlteracao).toBe(1)
@@ -223,9 +210,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(1)
 
-            expect(lista[0].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
-            expect(lista[0].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoBar.txt')
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt'))
         })
 
         it('teste de listagem de artefato A, M, D COM opção de mostrar deletados', async () => {
@@ -247,9 +232,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(1)
 
-            expect(lista[0].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.DELETED)
-            expect(lista[0].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoBar.txt')
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt'))
         })
 
         it('teste de listagem de artefato A, M, D SEM opção de mostrar deletados', async () => {
@@ -299,9 +282,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expect(lista[0].listaArtefatoSaida[0].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
-            expect(lista[0].listaArtefatoSaida[0].numeroAlteracao).toBe(1)
-            expect(lista[0].listaArtefatoSaida[0].nomeArtefato).toBe('foo/arquivoFoo.txt')
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoFoo.txt'))
 
             expect(lista[0].listaArtefatoSaida[1].tipoAlteracao).toBe(TIPO_MODIFICACAO.ADDED)
             expect(lista[0].listaArtefatoSaida[1].numeroAlteracao).toBe(1)
@@ -631,8 +612,8 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(18)
 
-            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.RENAMED,1,'abc/.jshintrcplo','abc/.jshintr','abc/.jshintrc'))
-            expect(lista[0].listaArtefatoSaida[1]).toMatchObject(obterObj(TIPO_MODIFICACAO.RENAMED,1,'abc/.jshintrcplo','abc/.jshintrc','abc/.jshintrcplo'))
+            expect(lista[0].listaArtefatoSaida[0]).toMatchObject(obterObj(TIPO_MODIFICACAO.RENAMED, 1, 'abc/.jshintrcplo', 'abc/.jshintr', 'abc/.jshintrc'))
+            expect(lista[0].listaArtefatoSaida[1]).toMatchObject(obterObj(TIPO_MODIFICACAO.RENAMED, 1, 'abc/.jshintrcplo', 'abc/.jshintrc', 'abc/.jshintrcplo'))
 
             expect(lista[0].listaArtefatoSaida[2]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'abc/arquivo-qux-spec.js'))
             expect(lista[0].listaArtefatoSaida[3]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'abc/arquivoPty.txt'))
@@ -648,9 +629,9 @@ describe('test gerais', () => {
 
             expect(lista[0].listaArtefatoSaida[12]).toMatchObject(obterObj(TIPO_MODIFICACAO.MODIFIED, 1, 'abc/arquivoFoo.txt'))
             expect(lista[0].listaArtefatoSaida[13]).toMatchObject(obterObj(TIPO_MODIFICACAO.MODIFIED, 1, 'def/arquivoBaz.txt'))
-            expect(lista[0].listaArtefatoSaida[14]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1,'ghi/arquivoOux.txt'))
-            expect(lista[0].listaArtefatoSaida[15]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1,'ghi/arquivoPty.txt'))
-            expect(lista[0].listaArtefatoSaida[16]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1,'ghi/arquivoXvc.txt'))
+            expect(lista[0].listaArtefatoSaida[14]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoOux.txt'))
+            expect(lista[0].listaArtefatoSaida[15]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoPty.txt'))
+            expect(lista[0].listaArtefatoSaida[16]).toMatchObject(obterObj(TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoXvc.txt'))
             expect(lista[0].listaArtefatoSaida[17]).toMatchObject(obterObj(TIPO_MODIFICACAO.MODIFIED, 1, 'ghi/arquivoIhx.txt'))
 
             expect(lista[1].listaNumeroTarefaSaida).toHaveLength(1)
