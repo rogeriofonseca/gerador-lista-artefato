@@ -61,14 +61,14 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoQux.txt')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'foo/arquivoQux.txt', 'foo/arquivoFoo.txt', 'foo/arquivoQux.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoQux.txt')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'foo/arquivoQux.txt', 'foo/arquivoFoo.txt', 'foo/arquivoQux.txt')
 
             expect(lista[1].listaNumeroTarefaSaida).toHaveLength(1)
             expect(lista[1].listaNumeroTarefaSaida[0]).toBe('2222222')
             expect(lista[1].listaArtefatoSaida).toHaveLength(1)
 
-            expectFoo(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/arquivoQux.txt')
+            expectObj(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/arquivoQux.txt')
         })
 
         it('teste de listagem de artefatos renomeados 2 vezes', async () => {
@@ -99,9 +99,9 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(3)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'foo/arquivoBar.txt', 'foo/arquivoFoo.txt', 'foo/arquivoQux.txt')
-            expectFoo(lista[0].listaArtefatoSaida[2], TIPO_MODIFICACAO.RENAMED, 1, 'foo/arquivoBar.txt', 'foo/arquivoQux.txt', 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'foo/arquivoBar.txt', 'foo/arquivoFoo.txt', 'foo/arquivoQux.txt')
+            expectObj(lista[0].listaArtefatoSaida[2], TIPO_MODIFICACAO.RENAMED, 1, 'foo/arquivoBar.txt', 'foo/arquivoQux.txt', 'foo/arquivoBar.txt')
         })
 
         it('teste de listagem de artefato A, R, D e A novamente', async () => {
@@ -138,8 +138,8 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoFoo.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoFoo.txt')
         })
 
         it('teste de listagem de artefato A, M, D e A com mesmo nome, COM opção de mostrar deletados', async () => {
@@ -164,8 +164,8 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
         })
 
         it('teste de listagem de artefato A, M, D e A com mesmo nome, SEM opção de mostrar deletados', async () => {
@@ -192,7 +192,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(1)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
         })
 
         it('teste de listagem de artefato A, M, D COM opção de mostrar deletados', async () => {
@@ -214,7 +214,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(1)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
         })
 
         it('teste de listagem de artefato A, M, D SEM opção de mostrar deletados', async () => {
@@ -264,8 +264,8 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoFoo.txt')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoFoo.txt')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
         })
 
         it('teste de listagem de artefatos commitados de uma vez', async () => {
@@ -307,13 +307,13 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(7)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/Gruntfile.js')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/src/app/spas/imovel/cadastro/cadastro-imovel-controllers.js')
-            expectFoo(lista[0].listaArtefatoSaida[2], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/src/app/spas/imovel/inclusao-foo/inclusao-foo-controllers.js')
-            expectFoo(lista[0].listaArtefatoSaida[3], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/spec/inclusao-foo-controllers-spec.js')
-            expectFoo(lista[0].listaArtefatoSaida[4], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/src/app/spas/imovel/cadastro/alterar-imovel.tpl.html')
-            expectFoo(lista[0].listaArtefatoSaida[5], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/src/app/spas/imovel/cadastro/cadastro-imovel.tpl.html')
-            expectFoo(lista[0].listaArtefatoSaida[6], TIPO_MODIFICACAO.DELETED, 1, 'foo/src/app/spas/inventario/bem-services.js')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/Gruntfile.js')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/src/app/spas/imovel/cadastro/cadastro-imovel-controllers.js')
+            expectObj(lista[0].listaArtefatoSaida[2], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/src/app/spas/imovel/inclusao-foo/inclusao-foo-controllers.js')
+            expectObj(lista[0].listaArtefatoSaida[3], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/spec/inclusao-foo-controllers-spec.js')
+            expectObj(lista[0].listaArtefatoSaida[4], TIPO_MODIFICACAO.MODIFIED, 1, 'foo/src/app/spas/imovel/cadastro/alterar-imovel.tpl.html')
+            expectObj(lista[0].listaArtefatoSaida[5], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/src/app/spas/imovel/cadastro/cadastro-imovel.tpl.html')
+            expectObj(lista[0].listaArtefatoSaida[6], TIPO_MODIFICACAO.DELETED, 1, 'foo/src/app/spas/inventario/bem-services.js')
         })
 
         it('teste ignorar stashes na listagem de artefatos', async () => {
@@ -334,7 +334,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(1)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
         })
 
         it('teste ignorar commits locais na listagem de artefatos', async () => {
@@ -368,7 +368,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(1)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/arquivoBar.txt')
         })
 
         it('teste de listagem de artefato A, M e D mas mostrando somente D', async () => {
@@ -393,7 +393,7 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(1)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.DELETED, 1, 'foo/arquivoBar.txt')
         })
 
         it('teste de listagem de artefato .gitignore', async () => {
@@ -416,15 +416,15 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/.jshintrc')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/bar/.gitignore')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/.jshintrc')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/bar/.gitignore')
 
             expect(lista[1].listaNumeroTarefaSaida).toHaveLength(1)
             expect(lista[1].listaNumeroTarefaSaida).toEqual(expect.arrayContaining(['2222222']))
             expect(lista[1].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.RENAMED, 1, 'foo/.jshintrc', 'foo/.jshintr', 'foo/.jshintrc')
-            expectFoo(lista[1].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'foo/bar/.gitignore', 'foo/bar/.gitignor', 'foo/bar/.gitignore')
+            expectObj(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.RENAMED, 1, 'foo/.jshintrc', 'foo/.jshintr', 'foo/.jshintrc')
+            expectObj(lista[1].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'foo/bar/.gitignore', 'foo/bar/.gitignor', 'foo/bar/.gitignore')
         })
 
         afterEach(async () => {
@@ -466,8 +466,8 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida).toEqual(expect.arrayContaining(['1111111']))
             expect(lista[0].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'qux/arquivoQux.txt')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'baz/arquivoBaz.txt')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'qux/arquivoQux.txt')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'baz/arquivoBaz.txt')
 
             gitQux.removerDiretorioProjeto()
             gitBaz.removerDiretorioProjeto()
@@ -546,34 +546,34 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(18)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.RENAMED, 1, 'abc/.jshintrcplo', 'abc/.jshintr', 'abc/.jshintrc')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'abc/.jshintrcplo', 'abc/.jshintrc', 'abc/.jshintrcplo')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.RENAMED, 1, 'abc/.jshintrcplo', 'abc/.jshintr', 'abc/.jshintrc')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.RENAMED, 1, 'abc/.jshintrcplo', 'abc/.jshintrc', 'abc/.jshintrcplo')
 
-            expectFoo(lista[0].listaArtefatoSaida[2], TIPO_MODIFICACAO.ADDED, 1, 'abc/arquivo-qux-spec.js')
-            expectFoo(lista[0].listaArtefatoSaida[3], TIPO_MODIFICACAO.ADDED, 1, 'abc/arquivoPty.txt')
-            expectFoo(lista[0].listaArtefatoSaida[4], TIPO_MODIFICACAO.ADDED, 1, 'abc/gruntfile-yuiq.js')
-            expectFoo(lista[0].listaArtefatoSaida[5], TIPO_MODIFICACAO.ADDED, 1, 'abc/karma-pty.config.js')
-            expectFoo(lista[0].listaArtefatoSaida[6], TIPO_MODIFICACAO.ADDED, 1, 'abc/ResourcearquivoRtu.java')
-            expectFoo(lista[0].listaArtefatoSaida[7], TIPO_MODIFICACAO.ADDED, 1, 'abc/ArquivoTyuResource.java')
-            expectFoo(lista[0].listaArtefatoSaida[8], TIPO_MODIFICACAO.ADDED, 1, 'abc/ArquivoUpeGateway.java')
-            expectFoo(lista[0].listaArtefatoSaida[9], TIPO_MODIFICACAO.ADDED, 1, 'abc/GatewayArquivoAqw.java')
+            expectObj(lista[0].listaArtefatoSaida[2], TIPO_MODIFICACAO.ADDED, 1, 'abc/arquivo-qux-spec.js')
+            expectObj(lista[0].listaArtefatoSaida[3], TIPO_MODIFICACAO.ADDED, 1, 'abc/arquivoPty.txt')
+            expectObj(lista[0].listaArtefatoSaida[4], TIPO_MODIFICACAO.ADDED, 1, 'abc/gruntfile-yuiq.js')
+            expectObj(lista[0].listaArtefatoSaida[5], TIPO_MODIFICACAO.ADDED, 1, 'abc/karma-pty.config.js')
+            expectObj(lista[0].listaArtefatoSaida[6], TIPO_MODIFICACAO.ADDED, 1, 'abc/ResourcearquivoRtu.java')
+            expectObj(lista[0].listaArtefatoSaida[7], TIPO_MODIFICACAO.ADDED, 1, 'abc/ArquivoTyuResource.java')
+            expectObj(lista[0].listaArtefatoSaida[8], TIPO_MODIFICACAO.ADDED, 1, 'abc/ArquivoUpeGateway.java')
+            expectObj(lista[0].listaArtefatoSaida[9], TIPO_MODIFICACAO.ADDED, 1, 'abc/GatewayArquivoAqw.java')
 
-            expectFoo(lista[0].listaArtefatoSaida[10], TIPO_MODIFICACAO.DELETED, 1, 'abc/karma-tpz.config.js')
-            expectFoo(lista[0].listaArtefatoSaida[11], TIPO_MODIFICACAO.DELETED, 1, 'abc/ArquivoTyuGateway.java')
+            expectObj(lista[0].listaArtefatoSaida[10], TIPO_MODIFICACAO.DELETED, 1, 'abc/karma-tpz.config.js')
+            expectObj(lista[0].listaArtefatoSaida[11], TIPO_MODIFICACAO.DELETED, 1, 'abc/ArquivoTyuGateway.java')
 
-            expectFoo(lista[0].listaArtefatoSaida[12], TIPO_MODIFICACAO.MODIFIED, 1, 'abc/arquivoFoo.txt')
-            expectFoo(lista[0].listaArtefatoSaida[13], TIPO_MODIFICACAO.MODIFIED, 1, 'def/arquivoBaz.txt')
-            expectFoo(lista[0].listaArtefatoSaida[14], TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoOux.txt')
-            expectFoo(lista[0].listaArtefatoSaida[15], TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoPty.txt')
-            expectFoo(lista[0].listaArtefatoSaida[16], TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoXvc.txt')
-            expectFoo(lista[0].listaArtefatoSaida[17], TIPO_MODIFICACAO.MODIFIED, 1, 'ghi/arquivoIhx.txt')
+            expectObj(lista[0].listaArtefatoSaida[12], TIPO_MODIFICACAO.MODIFIED, 1, 'abc/arquivoFoo.txt')
+            expectObj(lista[0].listaArtefatoSaida[13], TIPO_MODIFICACAO.MODIFIED, 1, 'def/arquivoBaz.txt')
+            expectObj(lista[0].listaArtefatoSaida[14], TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoOux.txt')
+            expectObj(lista[0].listaArtefatoSaida[15], TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoPty.txt')
+            expectObj(lista[0].listaArtefatoSaida[16], TIPO_MODIFICACAO.ADDED, 1, 'ghi/arquivoXvc.txt')
+            expectObj(lista[0].listaArtefatoSaida[17], TIPO_MODIFICACAO.MODIFIED, 1, 'ghi/arquivoIhx.txt')
 
             expect(lista[1].listaNumeroTarefaSaida).toHaveLength(1)
             expect(lista[1].listaNumeroTarefaSaida[0]).toBe('2222222')
             expect(lista[1].listaArtefatoSaida).toHaveLength(2)
 
-            expectFoo(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 2, 'abc/arquivoFoo.txt')
-            expectFoo(lista[1].listaArtefatoSaida[1], TIPO_MODIFICACAO.DELETED, 1, 'abc/arquivo-qux.css')
+            expectObj(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 2, 'abc/arquivoFoo.txt')
+            expectObj(lista[1].listaArtefatoSaida[1], TIPO_MODIFICACAO.DELETED, 1, 'abc/arquivo-qux.css')
 
             gitAbc.removerDiretorioProjeto()
             gitDef.removerDiretorioProjeto()
@@ -651,29 +651,29 @@ describe('test gerais', () => {
             expect(lista[0].listaNumeroTarefaSaida[0]).toBe('1111111')
             expect(lista[0].listaArtefatoSaida).toHaveLength(10)
 
-            expectFoo(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/src/main/java/br/com/foo/bar/api/v1/resource/BazResource.java')
-            expectFoo(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/src/test/java/br/com/foo/bar/api/v1/resources/test/BazResourceTest.java')
+            expectObj(lista[0].listaArtefatoSaida[0], TIPO_MODIFICACAO.ADDED, 1, 'foo/src/main/java/br/com/foo/bar/api/v1/resource/BazResource.java')
+            expectObj(lista[0].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'foo/src/test/java/br/com/foo/bar/api/v1/resources/test/BazResourceTest.java')
 
-            expectFoo(lista[0].listaArtefatoSaida[4], TIPO_MODIFICACAO.ADDED, 1, 'foo/karma.conf.js')
-            expectFoo(lista[0].listaArtefatoSaida[5], TIPO_MODIFICACAO.ADDED, 1, 'foo/Gruntfile.js')
+            expectObj(lista[0].listaArtefatoSaida[4], TIPO_MODIFICACAO.ADDED, 1, 'foo/karma.conf.js')
+            expectObj(lista[0].listaArtefatoSaida[5], TIPO_MODIFICACAO.ADDED, 1, 'foo/Gruntfile.js')
 
-            expectFoo(lista[0].listaArtefatoSaida[6], TIPO_MODIFICACAO.ADDED, 1, 'foo/src/app/spas/foo-controller.js')
-            expectFoo(lista[0].listaArtefatoSaida[7], TIPO_MODIFICACAO.ADDED, 1, 'foo/foo-controller.html')
+            expectObj(lista[0].listaArtefatoSaida[6], TIPO_MODIFICACAO.ADDED, 1, 'foo/src/app/spas/foo-controller.js')
+            expectObj(lista[0].listaArtefatoSaida[7], TIPO_MODIFICACAO.ADDED, 1, 'foo/foo-controller.html')
 
-            expectFoo(lista[0].listaArtefatoSaida[8], TIPO_MODIFICACAO.DELETED, 1, 'foo/bar-controller.html')
-            expectFoo(lista[0].listaArtefatoSaida[9], TIPO_MODIFICACAO.ADDED, 1, 'bar/src/app/spas/bar-controller.js')
+            expectObj(lista[0].listaArtefatoSaida[8], TIPO_MODIFICACAO.DELETED, 1, 'foo/bar-controller.html')
+            expectObj(lista[0].listaArtefatoSaida[9], TIPO_MODIFICACAO.ADDED, 1, 'bar/src/app/spas/bar-controller.js')
 
             expect(lista[1].listaNumeroTarefaSaida).toHaveLength(1)
             expect(lista[1].listaNumeroTarefaSaida[0]).toBe('2222222')
             expect(lista[1].listaArtefatoSaida).toHaveLength(7)
 
-            expectFoo(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/foo-controller.html')
-            expectFoo(lista[1].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'bar/quuz-controller.html')
-            expectFoo(lista[1].listaArtefatoSaida[2], TIPO_MODIFICACAO.ADDED, 1, 'bar/yrizz-controller.html')
-            expectFoo(lista[1].listaArtefatoSaida[3], TIPO_MODIFICACAO.RENAMED, 1, 'bar/quuz-controller.html', 'bar/qux-controller.html', 'bar/quy-controller.html')
-            expectFoo(lista[1].listaArtefatoSaida[4], TIPO_MODIFICACAO.RENAMED, 1, 'bar/quuz-controller.html', 'bar/quy-controller.html', 'bar/quuz-controller.html')
-            expectFoo(lista[1].listaArtefatoSaida[5], TIPO_MODIFICACAO.RENAMED, 1, 'bar/yrizz-controller.html', 'bar/frzzy-controller.html', 'bar/walzz-controller.html')
-            expectFoo(lista[1].listaArtefatoSaida[6], TIPO_MODIFICACAO.RENAMED, 1, 'bar/yrizz-controller.html', 'bar/walzz-controller.html', 'bar/yrizz-controller.html')
+            expectObj(lista[1].listaArtefatoSaida[0], TIPO_MODIFICACAO.MODIFIED, 2, 'foo/foo-controller.html')
+            expectObj(lista[1].listaArtefatoSaida[1], TIPO_MODIFICACAO.ADDED, 1, 'bar/quuz-controller.html')
+            expectObj(lista[1].listaArtefatoSaida[2], TIPO_MODIFICACAO.ADDED, 1, 'bar/yrizz-controller.html')
+            expectObj(lista[1].listaArtefatoSaida[3], TIPO_MODIFICACAO.RENAMED, 1, 'bar/quuz-controller.html', 'bar/qux-controller.html', 'bar/quy-controller.html')
+            expectObj(lista[1].listaArtefatoSaida[4], TIPO_MODIFICACAO.RENAMED, 1, 'bar/quuz-controller.html', 'bar/quy-controller.html', 'bar/quuz-controller.html')
+            expectObj(lista[1].listaArtefatoSaida[5], TIPO_MODIFICACAO.RENAMED, 1, 'bar/yrizz-controller.html', 'bar/frzzy-controller.html', 'bar/walzz-controller.html')
+            expectObj(lista[1].listaArtefatoSaida[6], TIPO_MODIFICACAO.RENAMED, 1, 'bar/yrizz-controller.html', 'bar/walzz-controller.html', 'bar/yrizz-controller.html')
 
             gitFoo.removerDiretorioProjeto()
             gitBar.removerDiretorioProjeto()
@@ -686,7 +686,7 @@ describe('test gerais', () => {
 })
 
 
-function expectFoo(artefato, tipoAlteracao, numeroAlteracao, nomeArtefato, nomeAntigoArtefato, nomeNovoArtefato) {
+function expectObj(artefato, tipoAlteracao, numeroAlteracao, nomeArtefato, nomeAntigoArtefato, nomeNovoArtefato) {
     expect(artefato).toMatchObject({
         tipoAlteracao: tipoAlteracao,
         numeroAlteracao: numeroAlteracao,
