@@ -14,7 +14,8 @@
     "test": "jest --runInBand --verbose",
     "pkg-win": "pkg . -t node8-win-x64 -o dist/gerador-lista-artefato-qas.exe",
     "pkg-linux": "pkg . -t node8-linux-x64 -o dist/gerador-lista-artefato-qas",
-    "pkg": "npm run pkg-win && npm run pkg-linux"
+    "pkg-mac": "pkg . -t node8-macos-x64 -o dist/gerador-lista-artefato-qas-mac",
+    "pkg": "npm run pkg-win && npm run pkg-linux && npm run pkg-mac"
   },
   "keywords": [],
   "author": "",
