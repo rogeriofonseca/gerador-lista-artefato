@@ -22,6 +22,8 @@ App para listar os artefatos incluídos/alterados/renomeados para geração do Q
 
 - [Windows](https://raw.githubusercontent.com/diegomdrs/gerador-lista-artefato-qas/master/dist/gerador-lista-artefato-qas.exe)
 
+- [Mac](https://raw.githubusercontent.com/diegomdrs/gerador-lista-artefato-qas/master/dist/gerador-lista-artefato-qas-mac)
+
 ## Utilização
 
 ### Windows
