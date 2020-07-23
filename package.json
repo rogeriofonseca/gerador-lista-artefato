@@ -12,10 +12,10 @@
     "start": "node app -s",
     "dev": "node --inspect app -s",
     "test": "jest --runInBand --verbose",
-    "pkg-win": "pkg . -t node8-win-x64 -o dist/gerador-lista-artefato-qas.exe",
-    "pkg-linux": "pkg . -t node8-linux-x64 -o dist/gerador-lista-artefato-qas",
+    "pkg-win": "pkg . -t node8-win-x64 -o dist/gerador-lista-artefato-qas-win.exe",
+    "pkg-lin": "pkg . -t node8-linux-x64 -o dist/gerador-lista-artefato-qas-lin",
     "pkg-mac": "pkg . -t node8-macos-x64 -o dist/gerador-lista-artefato-qas-mac",
-    "pkg": "npm run pkg-win && npm run pkg-linux && npm run pkg-mac"
+    "pkg": "npm run pkg-win && npm run pkg-lin && npm run pkg-mac"
   },
   "keywords": [],
   "author": "",
