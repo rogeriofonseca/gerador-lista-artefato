@@ -35,16 +35,28 @@ Para utilizar o gerador na versão para Windows, baixe o executável e clique du
 Na primeira utilização da versão Linux, execute:
 
 ``` console
-$ chmod +x gerador-lista-artefato-qas
+$ chmod +x gerador-lista-artefato-qas-lin
 ```
 Em seguida, execute o comando:
 
 ``` console
-$ ./gerador-lista-artefato-qas
+$ ./gerador-lista-artefato-qas-lin
+```
+### Mac
+
+Na primeira utilização da versão Linux, execute:
+
+``` console
+$ chmod +x gerador-lista-artefato-qas-mac
+```
+Em seguida, execute o comando:
+
+``` console
+$ ./gerador-lista-artefato-qas-mac
 ```
 Em seguida, será aberto o endereço [http://localhost:3333/gerador](http://localhost:3333/gerador)
 
-![Modo Web](https://raw.githubusercontent.com/diegomdrs/gerador-lista-artefato-qas/master/web.png)
+![Modo Web](web.png)
 
 ## Utilização do modo CLI
 
