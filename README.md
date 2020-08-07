@@ -44,7 +44,7 @@ $ ./gerador-lista-artefato-qas-lin
 ```
 ### Mac
 
-Na primeira utilização da versão Linux, execute:
+Na primeira utilização da versão Mac, execute:
 
 ``` console
 $ chmod +x gerador-lista-artefato-qas-mac
