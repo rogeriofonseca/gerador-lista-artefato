@@ -60,7 +60,7 @@ Em seguida, será aberto o endereço [http://localhost:3333/gerador](http://loca
 
 ## Utilização do modo CLI
 
-### Linux
+### Linux e Mac
 
 ``` console
 $ ./gerador-lista-artefato-qas --diretorio=/kdi/git --projeto=foo-estatico,foo-api --autor=X1337 --task=900089,900081
