@@ -5,15 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "server launch",
             "type": "node",
             "request": "launch",
-            "name": "server launch",
             "program": "${workspaceFolder}/app.js",
             "cwd": "${workspaceFolder}",
             "restart": true,
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
         },
         {
             // node app --diretorio=/home/foo/Documents --projeto=foo-estatico,foo-api --autor=diegomdrs --task=1111111 --mostrar-num-modificacao --mostrar-deletados --mostrar-commits-locais
