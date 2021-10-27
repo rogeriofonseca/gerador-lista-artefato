@@ -21,7 +21,7 @@ describe('Testes gerais', () => {
             gitUtil = await new GeradorTestUtil(nomeProjeto, autor)
         })
 
-        it.only('teste de listagem de artefato A, M, R, D com período de pesquisa', async () => {
+        it('teste de listagem de artefato A, M, R, D com período de pesquisa', async () => {
 
             // git log --format=fuller
             // git show 87adbd2dde --format=fuller
