@@ -32,6 +32,16 @@ describe('test gerais', () => {
             gerador = new Gerador(params)
         })
 
+        it.only('teste do modulo Param com parametros repetidos', () => {
+
+            const commitMessage = 'task 265021 - [PACS.002] Remoção do domínio BE15 e inclusão do domínio DS24 nos motivos de rejeição'
+
+            const { numeroTarefa, descricaoTarefa } = gerador.obterMessagemCommit(commitMessage)
+
+            expect(numeroTarefa).toEqual('265021')
+            expect(descricaoTarefa).toEqual('[PACS.002] Remoção do domínio BE15 e inclusão do domínio DS24 nos motivos de rejeição')
+        })
+
         it('teste do modulo Param com parametros repetidos', () => {
 
             const params = new Param({
